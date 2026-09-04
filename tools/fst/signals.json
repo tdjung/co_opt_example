@@ -1,0 +1,20 @@
+{
+ "_comment": "Map logical names to the platform's FST signal names (full hierarchical names as shown by `fst_tools.py list`). PLACEHOLDERS: edit on the closed network.",
+ "cpu_hz": 100000000,
+ "core_pc": "top.core.commit_pc",
+ "core_extra": ["top.core.commit_func", "top.core.commit_insn", "top.core.commit_line"],
+ "func": "top.core.commit_func",
+ "trace_marker": "top.ctrl.trace_marker",
+ "bus_masters": {
+  "cpu": {"req": "top.bus.m0_req", "busy": "top.bus.m0_active"},
+  "dma": {"req": "top.bus.m1_req", "busy": "top.bus.m1_active"},
+  "mac": {"req": "top.bus.m2_req", "busy": "top.bus.m2_active"}
+ },
+ "bus_slaves": {
+  "sram0": {"busy": "top.bus.s0_active"},
+  "sram1": {"busy": "top.bus.s1_active"},
+  "flash": {"busy": "top.bus.s2_active"}
+ },
+ "bus_extra": ["top.bus.addr", "top.bus.wdata", "top.bus.rdata", "top.bus.size", "top.bus.master_id"],
+ "all_signals": []
+}
