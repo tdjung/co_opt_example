@@ -1,0 +1,4 @@
+host/build*/
+__pycache__/
+*.pyc
+/tmp/
