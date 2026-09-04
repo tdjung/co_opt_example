@@ -103,20 +103,22 @@ def parse(path: str) -> Profile:
             line = raw.rstrip("\n")
             if not line or line.startswith("#"):
                 continue
-            if ":" in line and not line[0].isdigit() and not line[0] in "+-*":
-                key, _, val = line.partition(":")
+            c0 = line[0]
+            if not (c0.isdigit() or c0 in "+-*"):
+                # spec line "key=value" or header "key: value"
+                if "=" in line and (":" not in line or line.index("=") < line.index(":")):
+                    key, _, val = line.partition("=")
+                else:
+                    key, _, val = line.partition(":")
                 key = key.strip()
                 val = val.strip()
                 if key == "events":
                     p.events = val.split()
-                    continue
-                if key == "positions":
+                elif key == "positions":
                     p.positions = val.split()
-                    continue
-                if key in ("fl", "fi", "fe"):
+                elif key in ("fl", "fi", "fe"):
                     cur_file = _decompress(files, val)
-                    continue
-                if key == "fn":
+                elif key == "fn":
                     name = _decompress(fns, val)
                     cur_fn = p.functions.get(name)
                     if cur_fn is None:
@@ -125,21 +127,14 @@ def parse(path: str) -> Profile:
                     elif not cur_fn.file:
                         cur_fn.file = cur_file
                     pos = [0] * 4
-                    continue
-                if key in ("cfl", "cfi"):
+                elif key in ("cfl", "cfi"):
                     _decompress(files, val)
-                    continue
-                if key == "cfn":
+                elif key == "cfn":
                     cur_cfn = _decompress(fns, val)
-                    continue
-                if key == "calls":
-                    parts = val.split()
-                    pending_calls = int(parts[0])
-                    continue
-                if key in ("ob", "cob", "jump", "jcnd", "totals", "summary"):
+                elif key == "calls":
+                    pending_calls = int(val.split()[0])
+                else:
                     p.header[key] = val
-                    continue
-                p.header[key] = val
                 continue
             # cost line
             if cur_fn is None:

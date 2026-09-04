@@ -157,6 +157,9 @@ def _print(obj, as_json):
         if not obj:
             print("(empty)")
             return
+        if not isinstance(obj[0], dict):
+            print(" ".join(str(x) for x in obj))
+            return
         keys = [k for k in obj[0].keys() if k not in ("mix",)]
         print("  ".join(f"{k:>14}" if k != "function" else f"{k:<40}" for k in keys))
         for r in obj:

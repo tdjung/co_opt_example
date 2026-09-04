@@ -1,0 +1,30 @@
+# callgrind format
+version: 1
+creator: cm4-vp
+positions: line
+events: Ir Cycle Dr Dw Bc Bm CacheMiss AccTCM AccSRAM0 AccSRAM1 AccFlash StallI StallD BusWait
+
+fl=(1) app/ds_cnn.c
+fn=(1) ds_cnn_run
+50 100 400 30 10 5 1 0 10 30 0 0 200 80 20
++3 200 600 60 20 8 2 0 20 40 0 0 300 60 40
+cfl=(2) third_party/cmsis-nn/Source/ConvolutionFunctions/arm_convolve_s8.c
+cfn=(2) arm_convolve_s8
+calls=9 30
+55 0 90000 0 0 0 0 0 0 0 0 0 0 0 0
+cfn=(3) arm_depthwise_conv_s8
+cfl=(3) third_party/cmsis-nn/Source/ConvolutionFunctions/arm_depthwise_conv_s8.c
+calls=4 40
+60 0 20000 0 0 0 0 0 0 0 0 0 0 0 0
+
+fl=(2)
+fn=(2)
+30 40000 90000 12000 3000 1000 200 400 0 8000 0 7000 30000 15000 5000
+
+fl=(3)
+fn=(3)
+40 8000 20000 3000 1000 200 50 100 0 3000 0 1000 8000 3000 1000
+
+fl=(4) app/mfcc.c
+fn=(4) mfcc_push_hop
+* 20000 35000 5000 2000 300 40 20 4000 2000 0 1000 9000 5000 1000

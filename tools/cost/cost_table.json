@@ -1,0 +1,32 @@
+{
+ "_comment": "Relative cost units. area: SRAM 1KB = 1.0. energy: one 32-bit access to TCM = 1.0. Values are order-of-magnitude placeholders from public 40/28nm literature (CACTI-class); only ratios matter. Replace with the platform owner's numbers when available.",
+ "area": {
+  "sram_per_kb": 1.0,
+  "tcm_per_kb": 1.1,
+  "icache_per_kb": 2.5,
+  "icache_per_way": 0.5,
+  "flash_prefetch_buffer": 1.5,
+  "dma_per_channel": 0.8,
+  "dma_fifo_per_entry": 0.05,
+  "bus_64bit_extra": 2.0,
+  "mac_per_lane": 1.2,
+  "mac_base": 4.0
+ },
+ "energy_per_access": {
+  "AccTCM": 1.0,
+  "AccSRAM0": 1.8, "AccSRAM1": 1.8, "AccSRAM2": 1.8, "AccSRAM3": 1.8,
+  "AccFlash": 8.0,
+  "icache_hit": 1.2,
+  "icache_miss_line_fill": 40.0,
+  "dma_beat": 1.5,
+  "mac_per_mac_op": 0.05,
+  "cpu_per_instr": 0.3
+ },
+ "leakage_per_cycle": {
+  "sram_per_kb": 0.0002,
+  "tcm_per_kb": 0.0002,
+  "icache_per_kb": 0.0004,
+  "mac_per_lane": 0.0005,
+  "core": 0.01
+ }
+}

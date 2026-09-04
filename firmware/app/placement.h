@@ -167,7 +167,9 @@
 #endif
 
 /* ------------------------------------------------------------------ */
-/* KNOB: inference scheduling                                          */
+/* SPEC (not an optimisation knob): inference cadence.                 */
+/* Changing this changes WHICH inferences happen, so the golden must be */
+/* regenerated and the change treated as a product decision.           */
 /* ------------------------------------------------------------------ */
 #ifndef KWS_INFER_HOP_FRAMES
 #define KWS_INFER_HOP_FRAMES   5      /* run the CNN every N audio frames (N*20 ms) */

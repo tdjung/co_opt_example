@@ -1,0 +1,73 @@
+{
+ "name": "small",
+ "note": "baseline-class MCU: no cache, no accelerator",
+ "cpu_hz": 100000000,
+ "regions": {
+  "FLASH": {
+   "origin": "0x00000000",
+   "length_kb": 512
+  },
+  "ITCM": {
+   "origin": "0x10000000",
+   "length_kb": 16
+  },
+  "DTCM": {
+   "origin": "0x20000000",
+   "length_kb": 16
+  },
+  "SRAM0": {
+   "origin": "0x24000000",
+   "length_kb": 64
+  },
+  "SRAM1": {
+   "origin": "0x24010000",
+   "length_kb": 64
+  },
+  "SRAM2": {
+   "origin": "0x24020000",
+   "length_kb": 0
+  },
+  "SRAM3": {
+   "origin": "0x24030000",
+   "length_kb": 0
+  }
+ },
+ "flash": {
+  "wait_states": 6,
+  "prefetch": false
+ },
+ "icache": {
+  "size_kb": 0,
+  "ways": 0,
+  "line_bytes": 32
+ },
+ "dcache": {
+  "size_kb": 0
+ },
+ "bus": {
+  "width_bits": 32,
+  "arbiter": "fixed",
+  "priority": [
+   "cpu",
+   "dma",
+   "mac"
+  ]
+ },
+ "dma": {
+  "channels": 2,
+  "max_burst": 16,
+  "fifo_depth": 16
+ },
+ "mac": {
+  "lanes": 0,
+  "setup_cycles": 40,
+  "cycles_per_beat": 1
+ },
+ "knobs_area_neutral": [
+  "dma.burst (SW)",
+  "flash.prefetch",
+  "bus.arbiter",
+  "placement (SW)"
+ ],
+ "platform_ir": "TODO: path to the platform JSON IR generated from this tier"
+}
