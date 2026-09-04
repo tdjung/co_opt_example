@@ -319,6 +319,18 @@ Objective    = minimize Energy/frame
 
 ---
 
+## 10.5 구현 현황 (2026-09-04 갱신)
+
+계획서 작성 이후 개방망에서 다음이 구현·검증되었다. 상세는 `HANDOFF.md`.
+
+- 펌웨어(app/kernels/hal.h/host HAL), 타깃 스캐폴딩(startup, 링커 템플릿, 제안 레지스터 맵 기반 HAL) — arm-none-eabi 링크 성공
+- DS-CNN Small: TFLite 인터프리터와 bit-exact. 조건: `CMSIS_NN_USE_SINGLE_ROUNDING`, FC per-channel 지원
+- MFCC: TF audio_ops 대비 < 0.006 오차. libm 미사용(hex float 테이블 + 자체 log)으로 호스트/타깃 결정성 목표
+- 하네스(run_experiment/verify_golden/make_golden/ledger/tier→linker), callgrind 질의, FST 도구
+- **설계 변경**: 추론 1회가 ~2.7 M MAC(추정 6~10 M cycle)이라 20 ms마다 실행 불가 → **5프레임(100 ms)마다 추론**, 데드라인 100 ms. 이 값은 스펙이며 knob이 아님. 실험당 시간 예산은 1초 클립 기준 ≈ 12 M 명령어 → 0.5~10 MIPS에서 1~25초
+- 골든은 우리 C 코드의 호스트 실행 결과(`data/golden/*.log`). 타깃 첫 실행이 이와 일치하면 float 결정성까지 검증됨
+- 미포함(LFS/데이터셋 차단): ML-zoo tflite, Speech Commands WAV → 사용자가 개방망에서 추가
+
 ## 11. 새 세션 시작 가이드
 
 ### 11.1 작업 환경
@@ -336,13 +348,13 @@ Objective    = minimize Energy/frame
 5. 메모리 맵, DMA/Timer/기타 레지스터 맵 (헤더 파일 가능), NVIC IRQ 번호
 6. 세미호스팅 또는 UART 모델 지원 여부
 
-### 11.3 시작 프롬프트 예시
+### 11.3 시작 프롬프트 예시 (Claude Code, 리포지토리 루트에서)
 ```
-첨부한 cm4_hw_sw_coopt_poc_plan.md 의 계획에 따라 작업한다.
-현재 단계: §9 의 0단계(온보딩).
-제공 파일: [IR 스키마], [예제 구성], [모델 소스 구조], [실행 스크립트], [테스트 펌웨어]
-먼저 기존 예제를 빌드·실행하고, 확인된 사실과 계획서 대비 차이점을 정리한 뒤
-1단계(JSON IR 플랫폼 구성)로 넘어간다.
+CLAUDE.md 와 HANDOFF.md 를 읽어라. 현재 HANDOFF.md 의 0단계(온보딩)부터 시작한다.
+플랫폼 IR 스키마는 <경로>, 예제 구성은 <경로>, 시뮬레이터 실행은 <명령>이다.
+기존 예제를 빌드·실행해 보고, docs/HAL_SPEC.md 와 platform_regs.h 대비 실제 플랫폼의 차이를 표로 정리한 뒤
+1단계(platform_regs.h 교체, sim_run.run_target 구현, 스모크 테스트 부팅)로 넘어간다.
+HANDOFF.md 체크박스를 진행에 맞춰 갱신하고 커밋해라.
 ```
 
 ### 11.4 진행 중 갱신할 항목

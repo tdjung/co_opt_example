@@ -15,6 +15,7 @@
 | 타깃 startup / 링커 템플릿 / 타깃 HAL(제안 맵) / device 헤더 | arm-none-eabi-gcc 13.2 링크 성공 (`.text` 81 KB) |
 | 스모크 테스트 펌웨어 | 빌드 성공 (`make -f target.mk SMOKE=1`) |
 | callgrind 파서·질의 CLI | 픽스처로 테스트 |
+| FST 도구 (windows/at_pc/range/markers) | pylibfst, 합성 FST로 테스트 |
 | 하네스(run/verify/ledger/tier/linker gen/cost) | 호스트 백엔드로 end-to-end 검증 |
 | 골든 (합성 오디오 7클립, 난수 가중치) | `data/golden/*.log` |
 
@@ -66,8 +67,7 @@ git commit -am "Real weights + goldens"
 
 ### 4. 루프 인프라 마무리 (1일)
 - [ ] `tools/callgrind/cg_query.py`가 실제 callgrind 파일을 읽는지 확인 (형식 차이 시 `callgrind.py` 조정)
-- [ ] FST 집계: `tools/fst/bus_windows.py` 작성 — 10 µs 창별 마스터×슬레이브 요청 수/점유/겹침 → CSV. (파형 포맷·신호명을 알아야 해서 여기서는 미작성. `pyfst`/`fstapi` 또는 `fst2vcd` 후 파싱)
-- [ ] `wave_at_pc(pc, ±N)`: committed PC 신호에서 PC 매칭 → 시간창 → 버스 신호 추출
+- [ ] FST: `tools/fst/signals.json`의 신호명을 실제 파형 이름으로 교체(`fst_tools.py list`로 확인). 도구 자체(`windows/at_pc/range/markers`)는 합성 FST로 테스트 완료. `pip install pylibfst` 필요(폐쇄망 pip 미러 없으면 wheel을 리포지토리에 동봉)
 - 완료 기준: `CLAUDE.md`의 도구 표에 있는 명령이 전부 동작
 
 ### 5. Stage 1 시작

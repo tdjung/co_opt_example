@@ -56,9 +56,12 @@ python3 tools/callgrind/cg_query.py callers  CG --function F
 python3 tools/callgrind/cg_query.py diff     CG_A CG_B --event Cycle
 #   --json 으로 기계 판독 출력
 
-# 파형 (폐쇄망 4단계에서 작성 예정)
-python3 tools/fst/bus_windows.py trace.fst --window-us 10 > windows.csv
-python3 tools/fst/wave_at_pc.py trace.fst --pc 0x... --cycles 200
+# 파형 (FST; 신호명은 tools/fst/signals.json에 매핑 — 폐쇄망에서 실제 이름으로 교체)
+python3 tools/fst/fst_tools.py list    trace.fst [--grep bus]
+python3 tools/fst/fst_tools.py windows trace.fst --window-us 10 --csv windows.csv   # 창별 마스터 요청/점유/겹침/함수
+python3 tools/fst/fst_tools.py at_pc   trace.fst --pc 0x... --cycles 200 [--occurrence k]
+python3 tools/fst/fst_tools.py range   trace.fst --t0 US --t1 US --signals a,b
+python3 tools/fst/fst_tools.py markers trace.fst
 
 # 타깃 빌드만
 cd firmware && make -f target.mk [LDSCRIPT=link/small.ld] [EXTRA_CFLAGS="-DOFFLOAD_PW1=1"]
