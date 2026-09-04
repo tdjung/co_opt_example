@@ -54,7 +54,7 @@ void mfcc_init(void)
 {
     memset(s_window, 0, sizeof(s_window));
     s_hops_seen = 0;
-    arm_rfft_fast_init_f32(&s_rfft, MFCC_NFFT);
+    arm_rfft_fast_init_1024_f32(&s_rfft);   /* size-specific init: avoids linking every twiddle table */
 }
 
 static void quantize(const float *coef, int8_t *out)

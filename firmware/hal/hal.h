@@ -6,7 +6,7 @@
  *   hal/host/   x86 build for golden generation and functional testing
  *   hal/target/ the CM4 virtual platform (to be implemented against its register map)
  *
- * The optimisation loop must NOT edit this file or hal/*; it only changes
+ * The optimisation loop must NOT edit this file or the hal directory; it only changes
  * arguments passed through it (see app/placement.h).
  */
 #ifndef HAL_H

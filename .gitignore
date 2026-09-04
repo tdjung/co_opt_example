@@ -2,3 +2,4 @@ host/build*/
 __pycache__/
 *.pyc
 /tmp/
+firmware/build_target*/
