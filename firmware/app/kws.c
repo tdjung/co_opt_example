@@ -44,6 +44,14 @@ void kws_process_hop(const int16_t *hop, uint32_t frame_idx)
     memcpy(s_feat + FEAT_LEN - KWS_IN_W, coef, KWS_IN_W);
     if (s_frames_in_window < KWS_IN_H) s_frames_in_window++;
     log_mfcc(frame_idx, coef);
+#ifdef HOST_BUILD
+    {   /* float coefficients for reference comparison (host only) */
+        const float *f = mfcc_last_float();
+        hal_log_printf("MFCCF frame=%u", (unsigned)frame_idx);
+        for (int i = 0; i < KWS_IN_W; i++) hal_log_printf(" %.6f", (double)f[i]);
+        hal_log_puts("\n");
+    }
+#endif
     hal_log_printf("PROF frame=%u mfcc_cycles=%u\n", (unsigned)frame_idx, (unsigned)t_mfcc);
 
     if (s_hop_count % KWS_INFER_HOP_FRAMES != 0)

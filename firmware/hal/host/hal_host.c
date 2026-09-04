@@ -69,7 +69,9 @@ void hal_host_parse_args(int argc, char **argv)
         else if (!strcmp(argv[i], "--mac")) g_mac = true;
         else { fprintf(stderr, "unknown arg %s\n", argv[i]); exit(2); }
     }
+#ifndef HAL_HOST_NO_MAIN
     if (!g_audio_len) { fprintf(stderr, "no --wav given\n"); exit(2); }
+#endif
 }
 
 /* ---------------- lifecycle ---------------- */
@@ -162,9 +164,11 @@ bool hal_mac_dot_rows(const int8_t *a, int32_t a_off, const int8_t *b, int32_t b
 void hal_marker(uint32_t id) { (void)id; }
 
 /* host entry wraps app main */
+#ifndef HAL_HOST_NO_MAIN
 extern int app_main(void);
 int main(int argc, char **argv)
 {
     hal_host_parse_args(argc, argv);
     return app_main();
 }
+#endif

@@ -59,7 +59,7 @@ arm_cmsis_nn_status offload_convolve_s8(const cmsis_nn_conv_params *cp,
 }
 
 arm_cmsis_nn_status offload_fully_connected_s8(const cmsis_nn_fc_params *fp,
-                                               const cmsis_nn_per_tensor_quant_params *qp,
+                                               const cmsis_nn_quant_params *qp,
                                                const cmsis_nn_dims *in_d, const int8_t *input,
                                                const cmsis_nn_dims *f_d, const int8_t *filter,
                                                const int32_t *bias,
@@ -74,7 +74,8 @@ arm_cmsis_nn_status offload_fully_connected_s8(const cmsis_nn_fc_params *fp,
     if (!hal_mac_dot_rows(input, fp->input_offset, filter, fp->filter_offset, n, rows, bias, results, wait_irq))
         return ARM_CMSIS_NN_NO_IMPL_ERROR;
     for (int32_t r = 0; r < rows; r++)
-        output[r] = requant_clamp(results[r], qp->multiplier, qp->shift,
+        output[r] = requant_clamp(results[r], qp->multiplier[qp->is_per_channel ? r : 0],
+                                  qp->shift[qp->is_per_channel ? r : 0],
                                   fp->output_offset, fp->activation.min, fp->activation.max);
     return ARM_CMSIS_NN_SUCCESS;
 }

@@ -109,5 +109,6 @@ extern const int32_t fc_mult[1];
 extern const int32_t fc_shift[1];
 
 static const char *const KWS_LABELS[KWS_N_CLASSES] = {"silence", "unknown", "yes", "no", "up", "down", "left", "right", "on", "off", "stop", "go"};
+#define KWS_FC_PER_CHANNEL 0
 #define KWS_WEIGHTS_TOTAL_BYTES 28984
 #endif

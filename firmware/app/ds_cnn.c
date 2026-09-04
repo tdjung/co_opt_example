@@ -139,14 +139,16 @@ int ds_cnn_run(const int8_t *features, int8_t *logits, int8_t *probs)
             fp.input_offset = -L->in_zp; fp.filter_offset = 0; fp.output_offset = L->out_zp;
             fp.activation.min = -128; fp.activation.max = 127;
             cmsis_nn_per_tensor_quant_params tq = { L->mult[0], L->shift[0] };
+            cmsis_nn_quant_params wq = { (int32_t *)L->mult, (int32_t *)L->shift, KWS_FC_PER_CHANNEL };
             cmsis_nn_dims fi = { 1, 1, 1, KWS_CH };
             cmsis_nn_dims ff = { KWS_CH, 1, 1, KWS_N_CLASSES };
             cmsis_nn_dims fb = { 1, 1, 1, KWS_N_CLASSES };
             cmsis_nn_dims fo = { 1, 1, 1, KWS_N_CLASSES };
             if (L->offload && mac)
-                offload_fully_connected_s8(&fp, &tq, &fi, s_pool_out, &ff, L->w, L->b, &fo, logits, OFFLOAD_WAIT_IRQ);
+                offload_fully_connected_s8(&fp, &wq, &fi, s_pool_out, &ff, L->w, L->b, &fo, logits, OFFLOAD_WAIT_IRQ);
             else
-                arm_fully_connected_s8(&ctx, &fp, &tq, &fi, s_pool_out, &ff, L->w, &fb, L->b, &fo, logits);
+                arm_fully_connected_wrapper_s8(&ctx, &fp, &wq, &fi, s_pool_out, &ff, L->w, &fb, L->b, &fo, logits);
+            (void)tq;
             s_cksum[li] = checksum(logits, KWS_N_CLASSES);
             s_cyc[li] = hal_cycles() - t0;
             break;

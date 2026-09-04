@@ -4,7 +4,7 @@
 # Requires: gcc, python3 (+numpy) for generated sources.
 
 FW      := ../firmware
-GEN     := ../model/generated
+GEN     ?= ../model/generated
 BUILD   := build$(VARIANT)
 CC      ?= gcc
 
@@ -14,12 +14,12 @@ CMSIS_NN  := $(FW)/third_party/cmsis-nn
 # Same numeric flags as the target build (see firmware/target.mk): no FMA
 # contraction, no fast-math -> bit-identical float results.
 CFLAGS  := $(EXTRA_CFLAGS) -O2 -std=gnu11 -ffp-contract=off -fno-fast-math -fno-strict-aliasing -Wall -Wno-unused-function \
-           -DHOST_BUILD -DCPU_HZ=100000000u -D__GNUC_PYTHON__ -DARM_MATH_LOOPUNROLL \
+           -DHOST_BUILD -DCPU_HZ=100000000u -DCMSIS_NN_USE_SINGLE_ROUNDING -D__GNUC_PYTHON__ -DARM_MATH_LOOPUNROLL \
            -I$(FW)/app -I$(FW)/hal -I$(FW)/kernels -I$(GEN) \
            -I$(CMSIS_DSP)/Include -I$(CMSIS_DSP)/PrivateInclude -I$(CMSIS_NN)/Include
 
-APP_SRC := $(wildcard $(FW)/app/*.c) $(wildcard $(FW)/kernels/*.c) $(FW)/hal/host/hal_host.c \
-           $(GEN)/kws_weights.c $(GEN)/mfcc_tables.c
+APP_SRC := $(wildcard $(FW)/app/*.c) $(wildcard $(FW)/kernels/*.c) $(FW)/hal/host/hal_host.c
+GEN_SRC := $(GEN)/kws_weights.c $(GEN)/mfcc_tables.c
 
 DSP_SRC := $(CMSIS_DSP)/Source/TransformFunctions/TransformFunctions.c \
            $(CMSIS_DSP)/Source/CommonTables/CommonTables.c \
@@ -39,9 +39,10 @@ NN_SRC  := $(wildcard $(CMSIS_NN)/Source/ConvolutionFunctions/*.c) \
            $(wildcard $(CMSIS_NN)/Source/BasicMathFunctions/*.c)
 
 SRC := $(APP_SRC) $(DSP_SRC) $(NN_SRC)
-OBJ := $(patsubst %.c,$(BUILD)/%.o,$(subst ../,,$(SRC)))
+OBJ := $(patsubst %.c,$(BUILD)/%.o,$(subst ../,,$(SRC))) \
+       $(patsubst %.c,$(BUILD)/gen/%.o,$(notdir $(GEN_SRC)))
 
-all: $(BUILD)/kws_host
+all: $(BUILD)/kws_host $(BUILD)/nn_only
 
 $(GEN)/kws_weights.c $(GEN)/kws_weights.h:
 	python3 ../model/gen_weights.py
@@ -52,8 +53,19 @@ $(BUILD)/%.o: ../%.c $(GEN)/kws_weights.h $(GEN)/mfcc_tables.h
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 
+$(BUILD)/gen/%.o: $(GEN)/%.c $(GEN)/kws_weights.h $(GEN)/mfcc_tables.h
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) -c $< -o $@
+
 $(BUILD)/kws_host: $(OBJ)
 	$(CC) $(OBJ) -o $@ -lm
+
+NN_OBJ := $(filter-out %/main.o %/hal_host.o,$(OBJ))
+$(BUILD)/nn_only: nn_only.c $(NN_OBJ) $(BUILD)/firmware/hal/host/hal_host_noentry.o
+	$(CC) $(CFLAGS) -DHAL_HOST_NO_MAIN nn_only.c $(NN_OBJ) $(BUILD)/firmware/hal/host/hal_host_noentry.o -o $@ -lm
+$(BUILD)/firmware/hal/host/hal_host_noentry.o: $(FW)/hal/host/hal_host.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) -DHAL_HOST_NO_MAIN -c $< -o $@
 
 run: $(BUILD)/kws_host
 	./$(BUILD)/kws_host --wav $(WAV)

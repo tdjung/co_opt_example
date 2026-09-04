@@ -144,11 +144,11 @@ def gen_tflite(path):
         out = tensor(op.Outputs(0))
         os_, oz = tq(out)
         if code in (tflite.BuiltinOperator.CONV_2D, tflite.BuiltinOperator.DEPTHWISE_CONV_2D):
-            it, wt, bt = tensor(ins[0]), tensor(ins[1]), tensor(ins[2])
+            it, wt = tensor(ins[0]), tensor(ins[1])
             isc, izp = tq(it)
             wsc, _ = tq(wt)
             w = tdata(wt).view(np.int8).reshape([wt.Shape(k) for k in range(wt.ShapeLength())])
-            b = tdata(bt).view(np.int32)
+            b = tdata(tensor(ins[2])).view(np.int32) if ins[2] >= 0 else np.zeros(w.shape[0] if code == tflite.BuiltinOperator.CONV_2D else w.shape[-1], np.int32)
             eff = (float(isc[0]) * wsc.astype(np.float64)) / float(os_[0])
             mults, shifts = zip(*[quantize_multiplier(float(e)) for e in eff])
             if code == tflite.BuiltinOperator.CONV_2D:
@@ -163,14 +163,15 @@ def gen_tflite(path):
         elif code == tflite.BuiltinOperator.AVERAGE_POOL_2D:
             pool_zp = int(oz[0])
         elif code == tflite.BuiltinOperator.FULLY_CONNECTED:
-            it, wt, bt = tensor(ins[0]), tensor(ins[1]), tensor(ins[2])
+            it, wt = tensor(ins[0]), tensor(ins[1])
             isc, izp = tq(it)
             wsc, _ = tq(wt)
             w = tdata(wt).view(np.int8).reshape(wt.Shape(0), wt.Shape(1))
-            b = tdata(bt).view(np.int32)
-            eff = float(isc[0]) * float(wsc[0]) / float(os_[0])
-            mu, sh = quantize_multiplier(eff)
-            layers.append(Layer("fc", "fc", w, b, np.array([mu], np.int32), np.array([sh], np.int32),
+            b = tdata(tensor(ins[2])).view(np.int32) if ins[2] >= 0 else np.zeros(w.shape[0], np.int32)
+            # per-tensor (1 scale) or per-channel (out_ch scales) filter quantisation
+            eff = (float(isc[0]) * wsc.astype(np.float64)) / float(os_[0])
+            mults, shifts = zip(*[quantize_multiplier(float(e)) for e in eff])
+            layers.append(Layer("fc", "fc", w, b, np.array(mults, np.int32), np.array(shifts, np.int32),
                                 int(izp[0]), int(oz[0]), float(isc[0]), float(os_[0])))
         elif code == tflite.BuiltinOperator.SOFTMAX:
             it = tensor(ins[0])
@@ -235,6 +236,8 @@ def emit(model, outdir):
         sizes += L.w.size + 4 * (L.b.size + L.mult.size + L.shift.size)
     h.append("static const char *const KWS_LABELS[KWS_N_CLASSES] = {" +
              ", ".join(f'"{s}"' for s in LABELS) + "};")
+    fc = [L for L in layers if L.kind == "fc"][0]
+    h.append(f"#define KWS_FC_PER_CHANNEL {1 if fc.mult.size > 1 else 0}")
     h.append(f"#define KWS_WEIGHTS_TOTAL_BYTES {sizes}")
     h.append("#endif")
     with open(os.path.join(outdir, "kws_weights.h"), "w") as f:

@@ -19,7 +19,7 @@ arm_cmsis_nn_status offload_convolve_s8(const cmsis_nn_conv_params *conv_params,
                                         int8_t *im2col_scratch, bool wait_irq);
 
 arm_cmsis_nn_status offload_fully_connected_s8(const cmsis_nn_fc_params *fc_params,
-                                               const cmsis_nn_per_tensor_quant_params *quant_params,
+                                               const cmsis_nn_quant_params *quant_params,
                                                const cmsis_nn_dims *input_dims, const int8_t *input,
                                                const cmsis_nn_dims *filter_dims, const int8_t *filter,
                                                const int32_t *bias,
