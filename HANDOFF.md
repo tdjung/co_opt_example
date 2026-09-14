@@ -2,7 +2,7 @@
 
 이 리포지토리는 개방망에서 **플랫폼에 의존하지 않는 모든 것**을 완성해 둔 상태다. 폐쇄망에서는
 아래 체크리스트만 순서대로 진행하면 Stage 1(SW-only AI 최적화 루프)에 들어갈 수 있다.
-전체 배경·설계는 `docs/cm4_hw_sw_coopt_poc_plan.md`, Claude Code 지침은 `CLAUDE.md`.
+전체 배경·설계는 `docs/cm4_hw_sw_coopt_poc_plan.md`, Claude Code 지침은 `CLAUDE.md`, 세션 시작 프롬프트는 `docs/CLOSED_NET_PROMPTS.md`.
 
 ## 완료된 것 (검증 포함)
 
