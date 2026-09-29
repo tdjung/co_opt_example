@@ -1,0 +1,36 @@
+<section id="wavescope" data-transition="fade" style="background:#FFFFFF; color:#0F1B2D; font-family:'IBM Plex Sans', Arial, sans-serif; padding:160px 80px 80px; display:flex; flex-direction:column; gap:24px">
+<div style="position:absolute; left:0; top:0; width:1920px; height:116px; background:#111111"></div><p style="position:absolute; left:80px; top:0; width:1760px; height:116px; line-height:3.625; font-size:32px; font-weight:600; color:#FFFFFF">2. 개발 및 설계 — WaveScope (신규)</p>
+<h2 style="font-size:60px; font-weight:600; line-height:1.15">파형만 있으면 어떤 플랫폼이든 같은 프로파일이 나옵니다</h2>
+<div style="position:relative; width:1760px; height:480px">
+<svg aria-label="네 종류 플랫폼의 파형이 WaveScope를 거쳐 하나의 callgrind가 되고 Profiler에서 비교된다" viewBox="0 0 1760 480" style="position:absolute; left:0; top:0; width:1760px; height:480px">
+<rect x="0" y="0" width="320" height="90" rx="14" fill="#F7F6F1" stroke="#DDD9CC" stroke-width="2"/>
+<rect x="0" y="120" width="320" height="90" rx="14" fill="#F7F6F1" stroke="#DDD9CC" stroke-width="2"/>
+<rect x="0" y="240" width="320" height="90" rx="14" fill="#F7F6F1" stroke="#DDD9CC" stroke-width="2"/>
+<rect x="0" y="360" width="320" height="90" rx="14" fill="#F7F6F1" stroke="#DDD9CC" stroke-width="2"/>
+<path d="M320 45 Q450 45 500 225 M320 165 Q450 165 500 225 M320 285 Q450 285 500 225 M320 405 Q450 405 500 225" stroke="#B8B4A8" stroke-width="4" fill="none"/>
+<rect x="510" y="130" width="260" height="190" rx="16" fill="#0F1B2D"/>
+<path d="M770 225 L850 225" stroke="#2FA6A0" stroke-width="8"/><path d="M880 225 l-34 -20 v40 z" fill="#2FA6A0"/>
+<rect x="890" y="155" width="320" height="140" rx="20" fill="#2FA6A0"/>
+<path d="M1210 225 L1290 225" stroke="#E8A33D" stroke-width="8"/><path d="M1320 225 l-34 -20 v40 z" fill="#E8A33D"/>
+<rect x="1330" y="0" width="430" height="450" rx="16" fill="#0F1B2D"/>
+<g stroke="#8FA3B8" stroke-width="3" fill="none"><path d="M530 175 h32 v-14 h32 v14 h32 v-14 h32 v14 h32 v-14 h32 v14 h20"/><path d="M530 220 h54 v-14 h64 v14 h44 v-14 h50"/><path d="M530 265 h32 v-14 h86 v14 h32 v-14 h60"/></g>
+</svg>
+<p style="position:absolute; left:0; top:0px; width:320px; height:90px; font-size:30px; font-weight:600; text-align:center; line-height:3">가상 플랫폼</p>
+<p style="position:absolute; left:0; top:120px; width:320px; height:90px; font-size:30px; font-weight:600; text-align:center; line-height:3">RTL 시뮬레이터</p>
+<p style="position:absolute; left:0; top:240px; width:320px; height:90px; font-size:30px; font-weight:600; text-align:center; line-height:3">에뮬레이터</p>
+<p style="position:absolute; left:0; top:360px; width:320px; height:90px; font-size:30px; font-weight:600; text-align:center; line-height:3">FPGA 프로토타입</p>
+<p style="position:absolute; left:510px; top:96px; width:260px; font-family:'JetBrains Mono', Courier New, monospace; font-size:23px; color:#4A5568; text-align:center">파형 (clk + PC)</p>
+<p style="position:absolute; left:510px; top:328px; width:260px; font-size:23px; color:#4A5568; text-align:center">트레이스 IP 불필요</p>
+<p style="position:absolute; left:890px; top:155px; width:320px; height:140px; font-size:40px; font-weight:700; color:#0F1B2D; text-align:center; line-height:3.5">WaveScope</p>
+<p style="position:absolute; left:890px; top:310px; width:320px; font-size:23px; color:#4A5568; text-align:center; line-height:1.3">PC 신호 × ELF 디스어셈블리<br>수 GB 파형 → 약 3분</p>
+<p style="position:absolute; left:1352px; top:24px; width:390px; font-family:'JetBrains Mono', Courier New, monospace; font-size:24px; color:#E8A33D">callgrind · 같은 함수 이름</p>
+<p style="position:absolute; left:1352px; top:72px; width:390px; font-family:'JetBrains Mono', Courier New, monospace; font-size:26px; line-height:1.7; color:#F5F4EE">fir_filter    58,904<br>memcpy        31,878<br>dma_wait      15,488<br>irq_handler    9,134</p>
+<p style="position:absolute; left:1352px; top:270px; width:390px; font-size:25px; color:#BFD8D5; line-height:1.4">→ Profiler에서 플랫폼 간<br>함수별로 나란히 비교</p>
+<p style="position:absolute; left:1352px; top:380px; width:390px; font-size:22px; color:#8FA3B8">(숫자는 형식 예시)</p>
+</div>
+<div style="display:flex; gap:24px">
+<div style="flex:1; display:flex; align-items:center; gap:18px; background:#F7F6F1; padding:22px 30px; border:1px solid #DDD9CC; border-radius:12px"><x-icon name="Verified" style="width:38px; height:38px; color:#1F7F7A"></x-icon><p style="font-size:27px; line-height:1.3">TLM에서 찾은 최적점을 <b>RTL 파형으로 교차 검증</b> — 모델 정합성을 루프 안에서 관리</p></div>
+<div style="flex:1; display:flex; align-items:center; gap:18px; background:#F7F6F1; padding:22px 30px; border:1px solid #DDD9CC; border-radius:12px"><x-icon name="Search" style="width:38px; height:38px; color:#1F7F7A"></x-icon><p style="font-size:27px; line-height:1.3">단독으로도 사용 — 설계·시뮬레이터 수정 없이 <b>기존 파형에서 바로</b> 프로파일</p></div>
+</div>
+<aside>50초. 이번 과제에서 새로 만든 것. "왼쪽 네 곳 어디서 나온 파형이든 오른쪽 같은 표가 된다". 선행 기술(CoreSight ETM, E-Trace, TracerV)은 트레이스 IP·프로브·벤더 도구가 전제 — 질문 시 답변.</aside>
+</section>

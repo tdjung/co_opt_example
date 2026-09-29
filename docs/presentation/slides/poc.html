@@ -1,0 +1,37 @@
+<section id="poc" data-transition="fade" style="background:#FFFFFF; color:#0F1B2D; font-family:'IBM Plex Sans', Arial, sans-serif; padding:160px 80px 80px; display:flex; flex-direction:column; gap:28px">
+<div style="position:absolute; left:0; top:0; width:1920px; height:116px; background:#111111"></div><p style="position:absolute; left:80px; top:0; width:1760px; height:116px; line-height:3.625; font-size:32px; font-weight:600; color:#FFFFFF">3. 검증 및 결과 — PoC 구성: Keyword Spotting</p>
+<h2 style="font-size:60px; font-weight:600; line-height:1.15">PoC: 음성 키워드 인식(KWS)을 세 가지 면적 예산에서 최적화</h2>
+<div style="display:flex; gap:40px; align-items:stretch; flex:1">
+<div style="width:840px; display:flex; align-items:center; justify-content:center; background:#F7F6F1; border:1px solid #DDD9CC; border-radius:16px">
+<p style="font-size:28px; color:#6B7280; text-align:center; width:620px; line-height:1.4">[아키텍처 그림 자리]<br>CM4 + TCM · SRAM 뱅크 · Flash · DMA · MAC<br>AHB 매트릭스 (직접 삽입)</p>
+</div>
+<div style="flex:1; position:relative">
+<svg aria-label="마이크 소리가 DMA, MFCC, CNN을 거쳐 yes 라는 라벨이 되는 흐름" viewBox="0 0 880 580" style="position:absolute; left:0; top:0; width:880px; height:580px">
+<rect x="0" y="0" width="880" height="160" rx="16" fill="#0F1B2D"/>
+<g stroke="#2FA6A0" stroke-width="3" fill="none"><path d="M40 90 q9 -40 18 0 q9 40 18 0 q9 20 18 0 q9 -20 18 0 q9 -50 18 0 q9 50 18 0 q9 30 18 0 q9 -30 18 0 q9 -10 18 0 q9 10 18 0 q9 55 18 0 q9 -55 18 0 q9 -25 18 0 q9 25 18 0 q9 5 18 0 q9 -5 18 0 q9 -40 18 0 q9 40 18 0 q9 15 18 0 q9 -15 18 0 q9 -45 18 0 q9 45 18 0 q9 20 18 0 q9 -20 18 0 q9 -8 18 0 q9 8 18 0 q9 30 18 0 q9 -30 18 0 q9 -12 18 0 q9 12 18 0 q9 50 18 0 q9 -50 18 0 q9 -20 18 0 q9 20 18 0 q9 6 18 0 q9 -6 18 0 q9 -35 18 0 q9 35 18 0 q9 10 18 0 q9 -10 18 0 q9 -30 18 0 q9 30 18 0 q9 12 18 0 q9 -12 18 0"/></g>
+<rect x="0" y="215" width="266" height="120" rx="14" fill="#F7F6F1" stroke="#DDD9CC" stroke-width="2"/>
+<rect x="307" y="215" width="266" height="120" rx="14" fill="#F7F6F1" stroke="#DDD9CC" stroke-width="2"/>
+<rect x="614" y="215" width="266" height="120" rx="14" fill="#F7F6F1" stroke="#DDD9CC" stroke-width="2"/>
+<path d="M266 275 L296 275 M573 275 L603 275" stroke="#B8791F" stroke-width="6"/>
+<path d="M307 275 l-22 -13 v26 z M614 275 l-22 -13 v26 z" fill="#B8791F"/>
+<path d="M747 335 L747 380" stroke="#B8791F" stroke-width="6"/><path d="M747 402 l-13 -22 h26 z" fill="#B8791F"/>
+<rect x="0" y="410" width="880" height="170" rx="16" fill="#0F1B2D"/>
+<rect x="32" y="438" width="140" height="54" rx="27" fill="#E8A33D"/>
+</svg>
+<p style="position:absolute; left:22px; top:14px; width:500px; font-family:'JetBrains Mono', Courier New, monospace; font-size:23px; color:#8FA3B8">마이크 · 16 kHz · 1초 클립</p>
+<p style="position:absolute; left:0; top:232px; width:266px; font-size:28px; font-weight:600; text-align:center; line-height:1.3">DMA<br><span style="color:#4A5568">20 ms 프레임 수집</span></p>
+<p style="position:absolute; left:307px; top:232px; width:266px; font-size:28px; font-weight:600; text-align:center; line-height:1.3">MFCC<br><span style="color:#4A5568">FFT → 음향 특징</span></p>
+<p style="position:absolute; left:614px; top:232px; width:266px; font-size:28px; font-weight:600; text-align:center; line-height:1.3">CNN 추론<br><span style="color:#4A5568">INT8 · 2.7 M MAC</span></p>
+<p style="position:absolute; left:22px; top:424px; width:600px; font-family:'JetBrains Mono', Courier New, monospace; font-size:23px; color:#8FA3B8">결과: 12개 키워드 중 하나</p>
+<p style="position:absolute; left:32px; top:438px; width:140px; height:54px; font-size:30px; font-weight:700; color:#0F1B2D; text-align:center; line-height:1.8">yes</p>
+<p style="position:absolute; left:190px; top:446px; width:680px; font-size:26px; color:#BFD8D5; line-height:1.4">no · up · down · left · right · on · off · stop · go · silence · unknown</p>
+<p style="position:absolute; left:22px; top:522px; width:840px; font-size:25px; color:#F5F4EE">+ 동시에 1 kHz 제어 루프 ISR (응답 ≤ 20 µs)가 돌아야 함</p>
+</div>
+</div>
+<div style="display:flex; gap:24px">
+<div style="flex:1; display:flex; align-items:center; background:#F7F6F1; padding:20px 26px; border:1px solid #DDD9CC; border-left:8px solid #E8A33D; border-radius:10px"><p style="font-size:26px; line-height:1.3"><b>배치</b> — 가중치 29 KB + 버퍼가 TCM 16 KB에 다 안 들어감</p></div>
+<div style="flex:1; display:flex; align-items:center; background:#F7F6F1; padding:20px 26px; border:1px solid #DDD9CC; border-left:8px solid #2FA6A0; border-radius:10px"><p style="font-size:26px; line-height:1.3"><b>경합</b> — DMA와 CNN이 같은 SRAM 뱅크를 다툼</p></div>
+<div style="flex:1; display:flex; align-items:center; background:#F7F6F1; padding:20px 26px; border:1px solid #DDD9CC; border-left:8px solid #0F1B2D; border-radius:10px"><p style="font-size:26px; line-height:1.3"><b>오프로드</b> — 가속기는 큰 레이어만 이득</p></div>
+</div>
+<aside>50초. 오른쪽: "소리가 들어와서 yes라는 답이 나오는 데 몇 cycle 걸리나"가 측정값. 아래 세 칸이 일부러 심은 상충 관계. 면적 예산 3단계(≤170/≤280/≤470), SW 소스 동일.</aside>
+</section>

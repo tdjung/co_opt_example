@@ -8,6 +8,7 @@ AI 기반 HW-SW co-optimization PoC — Cortex-M4 가상 플랫폼, KWS(DS-CNN S
 | `HANDOFF.md` | 폐쇄망에서 남은 작업 체크리스트 (여기서 시작) |
 | `CLAUDE.md` | Claude Code 작업 지침 (포팅 단계 / 최적화 루프) |
 | `docs/CLOSED_NET_PROMPTS.md` | 폐쇄망 세션 시작 프롬프트 (복사해서 사용) |
+| `docs/presentation/` | 발표 슬라이드(오프라인 뷰어) + 대본 |
 | `docs/HAL_SPEC.md`, `docs/MAC_ACCEL_SPEC.md`, `docs/MEMORY_MAP.md` | 플랫폼 모델이 만족해야 할 동작 |
 
 빠른 확인 (호스트):

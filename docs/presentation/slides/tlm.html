@@ -1,0 +1,40 @@
+<section id="tlm" data-transition="fade" style="background:#FFFFFF; color:#0F1B2D; font-family:'IBM Plex Sans', Arial, sans-serif; padding:160px 80px 80px; display:flex; flex-direction:column; gap:28px">
+<div style="position:absolute; left:0; top:0; width:1920px; height:116px; background:#111111"></div><p style="position:absolute; left:80px; top:0; width:1760px; height:116px; line-height:3.625; font-size:32px; font-weight:600; color:#FFFFFF">1. 과제 배경 — TLM 모델이란</p>
+<h2 style="font-size:60px; font-weight:600; line-height:1.15">신호를 흉내 내지 않고, 트랜잭션에 시간을 붙입니다</h2>
+<div style="display:flex; gap:48px; align-items:stretch; flex:1">
+<div style="width:1000px; position:relative; background:#0F1B2D; border-radius:16px">
+<svg aria-label="RTL은 클럭마다 수십 개 신호를 계산하고, TLM은 트랜잭션 하나에 cycle 수를 붙인다" viewBox="0 0 1000 620" style="position:absolute; left:0; top:0; width:1000px; height:620px">
+<rect x="0" y="0" width="1000" height="620" rx="16" fill="#0F1B2D"/>
+<path d="M60 300 L940 300" stroke="#2A3B55" stroke-width="2"/>
+<g stroke="#8FA3B8" stroke-width="3" fill="none">
+<path d="M60 92 h44 v-22 h44 v22 h44 v-22 h44 v22 h44 v-22 h44 v22 h44 v-22 h44 v22 h44 v-22 h44 v22 h44 v-22 h44 v22 h44 v-22 h44 v22 h44 v-22 h44 v22 h44 v-22 h44 v22 h44 v-22 h44 v22"/>
+<path d="M60 144 h88 v-18 h132 v18 h66 v-18 h176 v18 h110 v-18 h88 v18 h220"/>
+<path d="M60 196 h154 v-18 h66 v18 h242 v-18 h110 v18 h66 v-18 h242"/>
+<path d="M60 248 h66 v-18 h176 v18 h132 v-18 h66 v18 h220 v-18 h88 v18 h132"/>
+</g>
+<g stroke="#2A3B55" stroke-width="1" stroke-dasharray="4 6"><path d="M104 60 v200 M192 60 v200 M280 60 v200 M368 60 v200 M456 60 v200 M544 60 v200 M632 60 v200 M720 60 v200 M808 60 v200 M896 60 v200"/></g>
+<rect x="70" y="380" width="240" height="120" rx="12" fill="#16263D" stroke="#2FA6A0" stroke-width="3"/>
+<rect x="690" y="380" width="240" height="120" rx="12" fill="#16263D" stroke="#2FA6A0" stroke-width="3"/>
+<path d="M310 440 L670 440" stroke="#E8A33D" stroke-width="6"/><path d="M670 440 l-26 -16 v32 z" fill="#E8A33D"/>
+<rect x="380" y="393" width="220" height="94" rx="47" fill="#E8A33D"/>
+</svg>
+<p style="position:absolute; left:36px; top:24px; width:500px; font-family:'JetBrains Mono', Courier New, monospace; font-size:24px; color:#8FA3B8">RTL · 클럭마다 모든 신호를 계산</p>
+<p style="position:absolute; left:70px; top:72px; width:60px; font-family:'JetBrains Mono', Courier New, monospace; font-size:24px; color:#5F7390">clk</p>
+<p style="position:absolute; left:70px; top:124px; width:120px; font-family:'JetBrains Mono', Courier New, monospace; font-size:24px; color:#5F7390">HADDR</p>
+<p style="position:absolute; left:70px; top:176px; width:120px; font-family:'JetBrains Mono', Courier New, monospace; font-size:24px; color:#5F7390">HWDATA</p>
+<p style="position:absolute; left:70px; top:228px; width:120px; font-family:'JetBrains Mono', Courier New, monospace; font-size:24px; color:#5F7390">HREADY</p>
+<p style="position:absolute; left:36px; top:318px; width:600px; font-family:'JetBrains Mono', Courier New, monospace; font-size:24px; color:#2FA6A0">TLM · 트랜잭션 하나 + cycle 숫자</p>
+<p style="position:absolute; left:70px; top:394px; width:240px; height:92px; font-size:34px; font-weight:600; color:#F5F4EE; text-align:center; line-height:2.7">CPU</p>
+<p style="position:absolute; left:690px; top:394px; width:240px; height:92px; font-size:34px; font-weight:600; color:#F5F4EE; text-align:center; line-height:2.7">SRAM</p>
+<p style="position:absolute; left:380px; top:394px; width:220px; height:92px; font-family:'JetBrains Mono', Courier New, monospace; font-size:32px; font-weight:600; color:#0F1B2D; text-align:center; line-height:2.9">+7 cycle</p>
+<p style="position:absolute; left:60px; top:530px; width:880px; font-family:'JetBrains Mono', Courier New, monospace; font-size:26px; color:#BFD8D5; text-align:center">write(0x2400_0010, data)  →  버스 대기 2 + 메모리 5</p>
+</div>
+<div style="flex:1; display:flex; flex-direction:column; justify-content:space-between">
+<div style="display:flex; gap:24px; align-items:center"><div style="width:108px; height:108px; display:flex; align-items:center; justify-content:center; background:#0F1B2D; border-radius:22px"><x-icon name="Lightning" style="width:58px; height:58px; color:#E8A33D"></x-icon></div><div style="flex:1; display:flex; flex-direction:column; gap:4px"><p style="font-size:36px; font-weight:600">RTL보다 수십~수백 배 빠르다</p><p style="font-size:26px; color:#4A5568; line-height:1.35">애플리케이션은 물론 RTOS까지 함께 개발할 수 있는 속도</p></div></div>
+<div style="display:flex; gap:24px; align-items:center"><div style="width:108px; height:108px; display:flex; align-items:center; justify-content:center; background:#0F1B2D; border-radius:22px"><x-icon name="Clock" style="width:58px; height:58px; color:#E8A33D"></x-icon></div><div style="flex:1; display:flex; flex-direction:column; gap:4px"><p style="font-size:36px; font-weight:600">그래도 cycle을 안다</p><p style="font-size:26px; color:#4A5568; line-height:1.35">기능만 맞추는 모델과 달리 "얼마나 느린가"에 답함</p></div></div>
+<div style="display:flex; gap:24px; align-items:center"><div style="width:108px; height:108px; display:flex; align-items:center; justify-content:center; background:#0F1B2D; border-radius:22px"><x-icon name="Settings" style="width:58px; height:58px; color:#E8A33D"></x-icon></div><div style="flex:1; display:flex; flex-direction:column; gap:4px"><p style="font-size:36px; font-weight:600">HW 구조가 파라미터다</p><p style="font-size:26px; color:#4A5568; line-height:1.35">TCM·캐시·버스·DMA를 config로 바꿔 실험</p></div></div>
+<div style="display:flex; gap:24px; align-items:center"><div style="width:108px; height:108px; display:flex; align-items:center; justify-content:center; background:#0F1B2D; border-radius:22px"><x-icon name="Search" style="width:58px; height:58px; color:#E8A33D"></x-icon></div><div style="flex:1; display:flex; flex-direction:column; gap:4px"><p style="font-size:36px; font-weight:600">안이 전부 보인다</p><p style="font-size:26px; color:#4A5568; line-height:1.35">C++ SW 플랫폼 — 분석 데이터를 원하는 형태·양으로</p></div></div>
+</div>
+</div>
+<aside>50초. 왼쪽 그림: 위는 RTL(클럭마다 신호 다 계산), 아래는 TLM(CPU→SRAM 화살표에 +7 cycle 뱃지). 오른쪽 네 줄이 곧 요구사항. 기존 수단 비교표는 부록.</aside>
+</section>

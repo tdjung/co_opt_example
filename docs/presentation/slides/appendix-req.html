@@ -1,0 +1,14 @@
+<section id="appendix-req" data-transition="fade" style="background:#FFFFFF; color:#0F1B2D; font-family:'IBM Plex Sans', Arial, sans-serif; padding:160px 80px 80px; display:flex; flex-direction:column; gap:36px">
+<div style="position:absolute; left:0; top:0; width:1920px; height:116px; background:#111111"></div><p style="position:absolute; left:80px; top:0; width:1760px; height:116px; line-height:3.625; font-size:32px; font-weight:600; color:#FFFFFF">부록 — 요구사항 분석: 기존 수단과의 비교</p>
+<h2 style="font-size:60px; font-weight:600; line-height:1.15">실리콘 이전에 필요한 것 다섯 가지, 기존 수단은 하나씩 빠져 있습니다</h2>
+<table style="font-size:30px; width:100%; color:#0F1B2D">
+<tr style="background:#0F1B2D"><th style="width:28%; color:#FFFFFF">필요한 것</th><th style="width:18%; color:#FFFFFF">RTL 시뮬</th><th style="width:18%; color:#FFFFFF">FPGA · 에뮬레이터</th><th style="width:18%; color:#FFFFFF">기능(LT) 시뮬</th><th style="width:18%; color:#FFFFFF">이 과제</th></tr>
+<tr style="background:#FFFFFF"><td>R1 · SW를 개발할 수 있는 속도</td><td style="color:#B8791F">✕ 수 KIPS</td><td>○</td><td>○</td><td style="color:#1F7F7A; font-weight:600">○ 50배+ vs RTL</td></tr>
+<tr style="background:#F7F6F1"><td>R2 · cycle 수준 정확도</td><td>○</td><td>○</td><td style="color:#B8791F">✕ 타이밍 없음</td><td style="color:#1F7F7A; font-weight:600">○ 99.7%</td></tr>
+<tr style="background:#FFFFFF"><td>R3 · 원인을 보여주는 분석 데이터</td><td>△ 파형뿐</td><td style="color:#B8791F">✕ 안이 안 보임</td><td>△</td><td style="color:#1F7F7A; font-weight:600">○ callgrind + 파형</td></tr>
+<tr style="background:#F7F6F1"><td>R4 · HW 구조를 바꿔 볼 수 있음</td><td style="color:#B8791F">✕ RTL 재작성</td><td style="color:#B8791F">✕ 재합성 수 시간</td><td>△</td><td style="color:#1F7F7A; font-weight:600">○ config 한 줄</td></tr>
+<tr style="background:#FFFFFF"><td>R5 · 반복을 사람 대신 돌릴 수 있음</td><td>–</td><td>–</td><td>–</td><td style="color:#1F7F7A; font-weight:600">○ AI 루프 + 사람 검토</td></tr>
+</table>
+<p style="font-size:30px; line-height:1.45; color:#4A5568; width:1700px">R1~R4를 한 플랫폼이 동시에 만족해야 R5(자동 최적화 루프)가 가능합니다. 공개 도구 참고: gem5는 Cortex-M 미지원, GVSoC는 RISC-V 전용, Arm Fast Model은 기능 수준(LT).</p>
+<aside>Q&A 대비용. "왜 기존 도구로 안 되나", "왜 gem5 안 썼나"가 오면 이 장을 띄운다.</aside>
+</section>

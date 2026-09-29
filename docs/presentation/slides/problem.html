@@ -1,0 +1,33 @@
+<section id="problem" data-transition="fade" style="background:#FFFFFF; color:#0F1B2D; font-family:'IBM Plex Sans', Arial, sans-serif; padding:160px 80px 80px; display:flex; flex-direction:column; gap:28px">
+<div style="position:absolute; left:0; top:0; width:1920px; height:116px; background:#111111"></div><p style="position:absolute; left:80px; top:0; width:1760px; height:116px; line-height:3.625; font-size:32px; font-weight:600; color:#FFFFFF">1. 과제 배경 — 빠르면서 cycle을 아는 시뮬레이터가 필요했다</p>
+<h2 style="font-size:56px; font-weight:600; line-height:1.15">실리콘 전에 HW·SW를 같이 최적화하려면 빠르면서 cycle을 아는 시뮬레이터가 필요한데,<br>그 자리가 비어 있었습니다</h2>
+<div style="display:flex; gap:48px; align-items:stretch; flex:1">
+<div style="width:1060px; position:relative; background:#F7F6F1; border:1px solid #DDD9CC; border-radius:16px">
+<svg aria-label="속도와 정확도 두 축에서 RTL은 정확하지만 느리고 C-model은 빠르지만 HW 특성이 없으며 TLM이 그 사이 빈 자리를 채운다" viewBox="0 0 1060 600" style="position:absolute; left:0; top:0; width:1060px; height:600px">
+<path d="M120 520 L1000 520 M120 520 L120 60" stroke="#B8B4A8" stroke-width="3" fill="none"/>
+<path d="M1000 520 l-22 -12 v24 z M120 60 l-12 22 h24 z" fill="#B8B4A8"/>
+<rect x="160" y="80" width="200" height="200" rx="100" fill="#0F1B2D"/>
+<rect x="770" y="330" width="200" height="200" rx="100" fill="#0F1B2D"/>
+<rect x="450" y="170" width="230" height="230" rx="115" fill="#E8A33D"/>
+<path d="M360 180 Q420 140 450 230" stroke="#B8B4A8" stroke-width="3" fill="none" stroke-dasharray="10 10"/>
+<path d="M680 340 Q730 370 770 430" stroke="#B8B4A8" stroke-width="3" fill="none" stroke-dasharray="10 10"/>
+</svg>
+<p style="position:absolute; left:140px; top:532px; width:300px; font-size:24px; color:#6B7280">느림</p>
+<p style="position:absolute; left:660px; top:532px; width:340px; font-size:24px; color:#6B7280; text-align:right">시뮬레이션 속도 → 빠름</p>
+<p style="position:absolute; left:20px; top:50px; width:96px; font-size:24px; color:#6B7280; text-align:right">정확</p>
+<p style="position:absolute; left:20px; top:470px; width:96px; font-size:24px; color:#6B7280; text-align:right">HW 없음</p>
+<p style="position:absolute; left:160px; top:140px; width:200px; font-size:36px; font-weight:700; color:#FFFFFF; text-align:center; line-height:1.2">RTL<br><span style="color:#B8C4D6">cycle-level</span></p>
+<p style="position:absolute; left:140px; top:290px; width:240px; font-size:24px; color:#4A5568; text-align:center; line-height:1.3">수 KIPS<br>앱 동작을 볼 수 없음</p>
+<p style="position:absolute; left:770px; top:390px; width:200px; font-size:36px; font-weight:700; color:#FFFFFF; text-align:center; line-height:1.2">C-model<br><span style="color:#B8C4D6">알고리즘</span></p>
+<p style="position:absolute; left:740px; top:270px; width:260px; font-size:24px; color:#4A5568; text-align:center; line-height:1.3">HW 특성 없음<br>성능을 볼 수 없음</p>
+<p style="position:absolute; left:450px; top:255px; width:230px; font-size:44px; font-weight:700; color:#0F1B2D; text-align:center">TLM</p>
+<p style="position:absolute; left:400px; top:410px; width:330px; font-size:26px; font-weight:600; color:#B8791F; text-align:center; line-height:1.3">수십~수백 배 빠르면서<br>cycle을 안다</p>
+</div>
+<div style="flex:1; display:flex; flex-direction:column; justify-content:center; gap:36px">
+<div style="display:flex; flex-direction:column; gap:8px; border-left:8px solid #0F1B2D; padding:6px 0 6px 32px"><p style="font-size:36px; font-weight:600">RTL 시뮬레이션</p><p style="font-size:28px; color:#4A5568; line-height:1.4">정확하지만 너무 느려 애플리케이션 동작을 제대로 보기 어렵다</p></div>
+<div style="display:flex; flex-direction:column; gap:8px; border-left:8px solid #0F1B2D; padding:6px 0 6px 32px"><p style="font-size:36px; font-weight:600">C-model</p><p style="font-size:28px; color:#4A5568; line-height:1.4">알고리즘만 있고 하드웨어 특성이 없어 성능을 볼 수 없다</p></div>
+<div style="display:flex; flex-direction:column; gap:8px; border-left:8px solid #E8A33D; padding:6px 0 6px 32px"><p style="font-size:36px; font-weight:600; color:#B8791F">TLM 모델</p><p style="font-size:28px; color:#4A5568; line-height:1.4">그 사이를 메운다 — 실리콘 전에 SW를 개발하면서 성능까지 본다</p></div>
+</div>
+</div>
+<aside>35초. 첫 문장에서 과제 목표(HW·SW 동시 최적화)를 먼저 말하고, 그 조건으로 문제를 제시. 그림의 빈 가운데를 가리키며 "여기가 비어 있었고 TLM이 채운다".</aside>
+</section>
