@@ -11,3 +11,12 @@
 `deck_preview.html`은 검토용 근사 렌더링이라 아이콘·화살표 도형은 단순화되어 보인다.
 
 채울 자리: 표지 `[발표자/조직]`, 6장 스크린샷·영상, 8장 아키텍처 그림, 9장 실측치, 10장 정량·교육 항목.
+
+## PPTX
+| 파일 | 폰트 |
+|---|---|
+| `deck_current_fonts.pptx` | IBM Plex Sans / JetBrains Mono (설치되지 않은 PC에서는 대체 폰트로 표시) |
+| `deck_basic_fonts.pptx` | Arial / Courier New (어디서나 동일하게 표시) |
+
+둘 다 `build_pptx.js`로 생성 (`node build_pptx.js current|basic`, pptxgenjs 필요). 내용·순서·발표자 노트는 슬라이드 HTML과 동일.
+템플릿 PPT로 옮길 때는 이 pptx에서 도형·텍스트를 복사해 붙여 넣는 편이 HTML보다 빠르다.
