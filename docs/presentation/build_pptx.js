@@ -85,11 +85,41 @@ function table(s, rows, x, y, w, colW, o = {}) {
   s.addNotes("템플릿의 표지 레이아웃이 따로 있으면 그쪽을 따르고, 이 장은 제목·부제·배지 문구만 옮긴다.");
 }
 
-// 2. problem
+
+// 2. trend (배경 — 개발은 이미 실리콘 앞에)
 {
-  const s = base("1. 과제 배경 — 빠르면서 cycle을 아는 시뮬레이터가 필요했다",
-    "35초. 첫 문장에서 과제 목표(HW·SW 동시 최적화)를 먼저 말하고, 그 조건으로 문제를 제시. 그림의 빈 가운데를 가리키며 '여기가 비어 있었고 TLM이 채운다'.");
-  H2(s, "실리콘 전에 HW·SW를 같이 최적화하려면 빠르면서 cycle을 아는 시뮬레이터가 필요한데,\n그 자리가 비어 있었습니다", 150, 46, 130);
+  const s = base("1. 과제 배경 — 개발은 이미 실리콘 앞에 와 있다",
+    "40초. '실리콘 전에 개발'은 새로운 얘기가 아니라는 것을 먼저 인정하고 시작한다 (심사위원 다수가 FPGA·에뮬레이터·벤더 도구를 안다). 포인트는 '못 본다'가 아니라 '한 번 보고 한 번 바꿔 보는 반복이 시간 단위'라는 것. 세 번째 줄에서 기존 도구가 사라지지 않고 검증 역할로 남는 것을 손으로 짚는다 — 8장 WaveScope가 이 약속을 받는다.");
+  T(s, [{ text: "실리콘 전에 개발하는 것은 이미 당연합니다.", options: { breakLine: true } }, { text: "이제는 실리콘 전에 " }, { text: "최적화까지", options: { color: C.orangeText } }, { text: " 끝내야 합니다" }], 80, 150, 1760, 140, { size: 56, bold: true, lineSpacing: 1.1 });
+  const X = 80, Y = 300; card(s, X, Y, 1760, 520);
+  Line(s, X + 240, Y + 156, X + 1720, Y + 156, "E4E0D4", 1.5); Line(s, X + 240, Y + 306, X + 1720, Y + 306, "E4E0D4", 1.5);
+  Line(s, X + 740, Y + 40, X + 740, Y + 470, C.orangeText, 1.5, { dash: "dash" });
+  T(s, "실리콘", X + 754, Y + 18, 200, 30, { size: 21, color: C.orangeText });
+  T(s, "TAT ↓ · AI로 개발 속도 ↑", X + 1300, Y + 16, 430, 30, { size: 22, mono: true, color: C.orangeText, align: "right", charSpacing: 2 });
+  const rows = [["과거", 66, C.ink], ["현재", 196, C.ink], ["이 과제", 346, C.orangeText]];
+  rows.forEach(([t, y, c]) => { T(s, t, X + 40, Y + y, 180, 52, { size: 30, bold: true, color: c, valign: "middle" }); R(s, X + 240, Y + y, 460, 52, C.ink, { radius: 8 }); T(s, "HW 설계", X + 240, Y + y, 460, 52, { size: 25, bold: true, color: C.white, align: "center", valign: "middle" }); });
+  const bar = (x, y, w, h, fill, text, size, color) => { R(s, x, y, w, h, fill, { radius: 8 }); T(s, text, x, y, w, h, { size, bold: true, color, align: "center", valign: "middle" }); };
+  const done = (x, y) => { Line(s, x, y, x, y + 52, C.orangeText, 3); T(s, "완성", x + 10, y + 12, 60, 30, { size: 22, bold: true, color: C.orangeText }); };
+  // 과거
+  bar(X + 760, Y + 66, 320, 52, "B8B4A8", "SW 개발", 25, C.white); bar(X + 1100, Y + 66, 260, 52, "B8B4A8", "최적화 (SW만)", 25, C.white); done(X + 1382, Y + 66);
+  T(s, "SW는 실리콘 뒤에 시작\nHW는 이미 고정", X + 1460, Y + 64, 280, 60, { size: 23, color: C.body, lineSpacing: 1.3 });
+  // 현재
+  bar(X + 430, Y + 254, 270, 42, C.mute, "SW 개발 · FPGA/에뮬", 22, C.white); bar(X + 760, Y + 196, 260, 52, "B8B4A8", "최적화 (SW만)", 25, C.white); done(X + 1042, Y + 196);
+  T(s, [{ text: "SW는 앞으로 왔지만 보고 바꿔 보는 1회 = " }, { text: "시간~일", options: { bold: true, breakLine: true } }, { text: "관찰 지점마다 프로브 삽입 · 구조 변경마다 재합성 · 장비 공유", options: { color: C.mute, fontSize: pt(21) } }], X + 1140, Y + 200, 600, 64, { size: 23, color: C.body, lineSpacing: 1.3 });
+  // 이 과제
+  bar(X + 250, Y + 404, 450, 52, C.orange, "가상 플랫폼: HW+SW 최적화 · AI 루프", 21, C.ink); bar(X + 400, Y + 462, 300, 40, C.mute, "검증: FPGA · 에뮬 · RTL", 19, C.white); done(X + 762, Y + 346);
+  T(s, [{ text: "HW 구조까지 함께, 1회 = " }, { text: "초", options: { bold: true, color: C.orangeText } }, { text: " · 하루 수백 번", options: { breakLine: true } }, { text: "기존 도구는 그대로 — 역할은 " }, { text: "검증", options: { bold: true, breakLine: true } }, { text: "실리콘 이후에 남는 일이 줄어 완성이 앞으로" }], X + 860, Y + 352, 580, 96, { size: 23, color: C.body, lineSpacing: 1.3 });
+  T(s, "가로축 = 시간 (개념도)\n세로 점선 = 실리콘 시점", X + 1460, Y + 352, 280, 60, { size: 21, color: C.mute, lineSpacing: 1.3 });
+  [["»", "TAT는 계속 줄고, AI가 개발 속도를 한 번 더 끌어올리는 중", C.tealText], ["○", "FPGA·에뮬레이터도 안을 볼 수는 있지만, 보고 바꾸는 반복이 느리다", C.tealText], ["✱", "대체가 아니라 앞단에 추가되는 옵션 — 여기서 찾은 답은 기존 도구로 검증", C.orangeText]].forEach((c, i) => {
+    const x = 80 + i * 596, w = 568; card(s, x, 850, w, 90, { radius: 12 }); T(s, c[0], x + 24, 850, 44, 90, { size: 34, color: c[2], valign: "middle" }); T(s, c[1], x + 76, 850, w - 100, 90, { size: 25, valign: "middle", lineSpacing: 1.3 });
+  });
+}
+
+// 3. problem
+{
+  const s = base("1. 과제 배경 — 그러려면 빠르면서 cycle을 아는 시뮬레이터가 필요하다",
+    "30초. 앞 장의 '초 단위 반복'을 받아 '그러려면 시뮬레이터가 필요한데'로 시작. FPGA·에뮬레이터는 앞 장에서 정리했으므로 여기서는 시뮬레이터끼리만 비교한다고 한 마디. 그림의 빈 가운데를 가리키며 '여기가 비어 있었고 TLM이 채운다'.");
+  H2(s, "그러려면 빠르면서 cycle을 아는 시뮬레이터가 필요한데,\n그 자리가 비어 있었습니다", 150, 50, 130);
   const X = 80, Y = 350, W = 1060, Hh = 580;
   card(s, X, Y, W, Hh);
   Line(s, X + 120, Y + 520, X + 1000, Y + 520, "B8B4A8", 2.5, { end: "triangle" });
@@ -105,10 +135,11 @@ function table(s, rows, x, y, w, colW, o = {}) {
   T(s, "시뮬레이션 속도 → 빠름", X + 660, Y + 532, 340, 34, { size: 24, color: C.mute, align: "right" });
   T(s, "정확", X + 20, Y + 50, 96, 34, { size: 24, color: C.mute, align: "right" });
   T(s, "HW 없음", X + 20, Y + 470, 96, 34, { size: 24, color: C.mute, align: "right" });
+  T(s, "시뮬레이터끼리 비교 — FPGA·에뮬레이터는 앞 장 (보고 바꾸는 반복이 느림)", X + 140, Y + 14, 900, 30, { size: 22, color: C.mute });
   const rx = 1190, rw = 650;
   [["RTL 시뮬레이션", "정확하지만 너무 느려 애플리케이션 동작을 제대로 보기 어렵다", C.ink, C.ink],
    ["C-model", "알고리즘만 있고 하드웨어 특성이 없어 성능을 볼 수 없다", C.ink, C.ink],
-   ["TLM 모델", "그 사이를 메운다 — 실리콘 전에 SW를 개발하면서 성능까지 본다", C.orange, C.orangeText]].forEach((r, i) => {
+   ["TLM 모델", "그 사이를 메운다 — SW를 개발하면서 HW 구조까지 바꿔 보고 성능을 본다", C.orange, C.orangeText]].forEach((r, i) => {
     const y = 410 + i * 165;
     R(s, rx, y, 8, 130, r[2]);
     T(s, r[0], rx + 32, y, rw - 32, 46, { size: 36, bold: true, color: r[3] });
@@ -116,7 +147,7 @@ function table(s, rows, x, y, w, colW, o = {}) {
   });
 }
 
-// 3. tlm
+// 4. tlm
 {
   const s = base("1. 과제 배경 — TLM 모델이란",
     "50초. 왼쪽 그림: 위는 RTL(클럭마다 신호 다 계산), 아래는 TLM(CPU→SRAM 화살표에 +7 cycle 뱃지). 오른쪽 네 줄이 곧 요구사항.");
@@ -137,14 +168,14 @@ function table(s, rows, x, y, w, colW, o = {}) {
   Line(s, X + 310, Y + 440, X + 690, Y + 440, C.orange, 5, { end: "triangle" });
   pill(s, "+7 cycle", X + 380, Y + 393, 220, 94, C.orange, C.ink);
   T(s, "write(0x2400_0010, data)  →  버스 대기 2 + 메모리 5", X + 60, Y + 530, 880, 40, { size: 26, mono: true, color: C.navySoft, align: "center" });
-  const items = [["RTL보다 수십~수백 배 빠르다", "애플리케이션은 물론 RTOS까지 함께 개발할 수 있는 속도", "»"], ["그래도 cycle을 안다", "기능만 맞추는 모델과 달리 \"얼마나 느린가\"에 답함", "○"], ["HW 구조가 파라미터다", "TCM·캐시·버스·DMA를 config로 바꿔 실험", "✱"], ["안이 전부 보인다", "C++ SW 플랫폼 — 분석 데이터를 원하는 형태·양으로", "◎"]];
+  const items = [["RTL보다 수십~수백 배 빠르다", "애플리케이션은 물론 RTOS까지 함께 개발할 수 있는 속도", "»"], ["그래도 cycle을 안다", "기능만 맞추는 모델과 달리 \"얼마나 느린가\"에 답함", "○"], ["HW 구조가 파라미터다", "TCM·캐시·버스·DMA를 config로 바꿔 실험", "✱"], ["안이 전부 보인다", "C++ SW 플랫폼 — 프로브·재합성 없이 분석 데이터를 원하는 형태·양으로", "◎"]];
   items.forEach((it, i) => { const y = 300 + i * 158; R(s, 1128, y, 108, 108, C.ink, { radius: 22 }); T(s, it[2], 1128, y, 108, 108, { size: 52, color: C.orange, align: "center", valign: "middle" });
     T(s, it[0], 1260, y + 4, 580, 46, { size: 36, bold: true }); T(s, it[1], 1260, y + 56, 580, 60, { size: 26, color: C.body, lineSpacing: 1.3 }); });
 }
 
-// 4. platform
+// 5. platform
 {
-  const s = base("2. 개발 및 설계 — Cortex-M4 TLM 가상 플랫폼", "45초. 세 숫자만 말한다. 모델링 범위는 손으로 훑는 정도. gem5/Fast Model 질문: gem5는 Cortex-M 미지원, Fast Model은 LT라 cycle 분석 불가.");
+  const s = base("2. 개발 및 설계 — Cortex-M4 TLM 가상 플랫폼", "40초. 세 숫자만 말한다. 모델링 범위는 손으로 훑는 정도. gem5/Fast Model 질문: gem5는 Cortex-M 미지원, Fast Model은 LT라 cycle 분석 불가.");
   H2(s, "TLM으로 만든 Cortex-M4 SoC: 빠르고, 정확하고, 간편합니다", 160, 60, 80);
   [["빠르다", "50배+", C.teal, "RTL 시뮬 대비 (벤치마크) · 실제 워크로드 수백 배 예상"], ["정확하다", "99.7%", C.orange, "cycle 정합성, RTL 시뮬 대비"], ["간편하다", "JSON 1장", C.white, "모델을 조립해 SoC 구성", 84]].forEach((c, i) => {
     const x = 80 + i * 596, w = 568; R(s, x, 290, w, 300, C.ink, { radius: 16 });
@@ -157,7 +188,7 @@ function table(s, rows, x, y, w, colW, o = {}) {
   });
 }
 
-// 5. loop
+// 6. loop
 {
   const s = base("2. 개발 및 설계 — Pre-Silicon Co-Optimization 루프", "60초. 이 장이 과제의 정의. 점선 되돌이 화살표를 가리키며 '실리콘 없이 HW와 SW를 같이 돌리는 루프'. 아래 두 줄이 신뢰 장치.");
   H2(s, "그래서 하나의 루프가 됩니다: 돌리고, 읽고, 고치고, 다시", 160, 60, 80);
@@ -175,9 +206,9 @@ function table(s, rows, x, y, w, colW, o = {}) {
   });
 }
 
-// 6. profiler
+// 7. profiler
 {
-  const s = base("2. 개발 및 설계 — Performance Profiler (Human-on-the-loop)", "45초. '시뮬레이터가 callgrind 하나를 내고, AI는 API로, 사람은 GUI로 같은 파일을 본다.' 왼쪽에 30초 무음 자동재생 영상(반복) 권장.");
+  const s = base("2. 개발 및 설계 — Performance Profiler (Human-on-the-loop)", "30초. '시뮬레이터가 callgrind 하나를 내고, AI는 API로, 사람은 GUI로 같은 파일을 본다.' 왼쪽에 30초 무음 자동재생 영상(반복) 권장.");
   H2(s, "하나의 프로파일을 AI와 사람이 같이 읽습니다", 160, 60, 80);
   R(s, 80, 290, 1080, 500, C.ink, { radius: 16 });
   T(s, "[스크린샷 또는 30초 자동재생 영상 — Performance Profiler\n함수 목록 → 라인 분석 + 점프 화살표 → 어셈블리 → 시나리오 비교]", 240, 290, 760, 500, { size: 30, color: C.navyMute, align: "center", valign: "middle", lineSpacing: 1.4 });
@@ -195,9 +226,9 @@ function table(s, rows, x, y, w, colW, o = {}) {
   });
 }
 
-// 7. wavescope
+// 8. wavescope
 {
-  const s = base("2. 개발 및 설계 — WaveScope (신규)", "50초. 이번 과제에서 새로 만든 것. '왼쪽 네 곳 어디서 나온 파형이든 오른쪽 같은 표가 된다'.");
+  const s = base("2. 개발 및 설계 — WaveScope (신규): 기존 도구와의 연결", "45초. 이번 과제에서 새로 만든 것. 2장에서 '여기서 찾은 답은 기존 도구로 검증한다'고 했으므로 방어가 아니라 '그 검증을 같은 형식으로 하게 만들었다'로 시작. '왼쪽 네 곳 어디서 나온 파형이든 오른쪽 같은 표가 된다'.");
   H2(s, "파형만 있으면 어떤 플랫폼이든 같은 프로파일이 나옵니다", 160, 60, 80);
   const Y = 270;
   ["가상 플랫폼", "RTL 시뮬레이터", "에뮬레이터", "FPGA 프로토타입"].forEach((t, i) => { card(s, 80, Y + i * 120, 320, 90, { radius: 14 }); T(s, t, 80, Y + i * 120, 320, 90, { size: 30, bold: true, align: "center", valign: "middle" }); Line(s, 400, Y + i * 120 + 45, 590, Y + 225, "B8B4A8", 3); });
@@ -214,12 +245,12 @@ function table(s, rows, x, y, w, colW, o = {}) {
   T(s, "fir_filter    58,904\nmemcpy        31,878\ndma_wait      15,488\nirq_handler    9,134", 1432, Y + 72, 390, 180, { size: 26, mono: true, color: "F5F4EE", lineSpacing: 1.6 });
   T(s, "→ Profiler에서 플랫폼 간\n함수별로 나란히 비교", 1432, Y + 270, 390, 70, { size: 25, color: C.navySoft, lineSpacing: 1.3 });
   T(s, "(숫자는 형식 예시)", 1432, Y + 380, 390, 30, { size: 22, color: C.navyMute });
-  [["✓", "TLM에서 찾은 최적점을 RTL 파형으로 교차 검증 — 모델 정합성을 루프 안에서 관리"], ["◎", "단독으로도 사용 — 설계·시뮬레이터 수정 없이 기존 파형에서 바로 프로파일"]].forEach((c, i) => {
+  [["✓", "2장의 약속 — TLM에서 찾은 최적점을 RTL·에뮬레이터 파형으로 검증, 모델 정합성을 루프 안에서 관리"], ["◎", "단독으로도 사용 — 설계·시뮬레이터 수정 없이 기존 파형에서 바로 프로파일"]].forEach((c, i) => {
     const x = 80 + i * 892, w = 868; card(s, x, 800, w, 120, { radius: 12 }); T(s, c[0], x + 28, 800, 44, 120, { size: 34, color: C.tealText, valign: "middle" }); T(s, c[1], x + 84, 800, w - 110, 120, { size: 27, valign: "middle", lineSpacing: 1.3 });
   });
 }
 
-// 8. poc
+// 9. poc
 {
   const s = base("3. 검증 및 결과 — PoC 구성: Keyword Spotting", "50초. 오른쪽: '소리가 들어와서 yes라는 답이 나오는 데 몇 cycle 걸리나'가 측정값. 아래 세 칸이 일부러 심은 상충 관계. 면적 예산 3단계(≤170/≤280/≤470), SW 소스 동일.");
   H2(s, "PoC: 음성 키워드 인식(KWS)을 세 가지 면적 예산에서 최적화", 160, 60, 80);
@@ -237,7 +268,7 @@ function table(s, rows, x, y, w, colW, o = {}) {
   });
 }
 
-// 9. results
+// 10. results
 {
   const s = base("3. 검증 및 결과 — PoC 결과", "60초. 회색 점(사람 출발점)→주황 점(AI 도착점) 화살표가 'AI가 HW도 SW도 바꿨다'는 증거. 점선은 헤드라인. 실측 후 그림 교체. 검은 박스의 HW 변경 목록이 co-optimization의 실체.");
   H2(s, "[헤드라인 — 예) 예산 280에서 AI가 고른 HW+SW가 예산 470의 사람 출발점보다 빠름: 면적 −40%, 같은 성능]", 160, 42, 120);
@@ -259,11 +290,11 @@ function table(s, rows, x, y, w, colW, o = {}) {
   T(s, [{ text: "신뢰성", options: { bold: true } }, { text: " — 모든 점은 출력 bit-exact · ISR ≤ 20 µs · overrun 0 통과. 모델 정합성 99.7%, 추론 커널 TFLite와 bit-exact, 실험마다 git rev·config 해시 기록. 예산 안의 HW 구성은 AI가 선택." }], 80, 850, 1760, 80, { size: 24, color: C.body, lineSpacing: 1.35 });
 }
 
-// 10. impact
+// 11. impact
 {
   const s = base("4. 기대효과 · 마무리", "45초. 정량 칸은 PoC 수치로. 교육·실무 칸의 대괄호는 제안 — 실제 교과목명·적용 프로젝트로 교체.\n\n제목 후보:\n1. 실리콘보다 먼저 — Cycle-level 가상 플랫폼과 파형 기반 프로파일러 위에서 AI가 도는 HW-SW Co-Optimization\n2. 파형에서 최적화까지 — 실리콘을 기다리지 않는 HW·SW 공동 최적화 루프\n3. 돌리고, 읽고, 고친다 — Pre-Silicon 성능 분석 툴체인과 AI Co-Optimization\n4. Shift-Left, Close the Loop — 실리콘 없이 완성하는 HW-SW 최적화\n5. 실리콘 없이 답하는 세 가지 질문: 얼마나 느린가, 왜 느린가, 어떻게 고치는가");
   H2(s, "실리콘을 기다리지 않습니다. 돌리고, 읽고, 고칩니다.", 160, 68, 90);
-  [["정성적 효과", ["SW 개발·HW-SW 최적화를 설계 단계로 앞당김", "\"왜 느린가\"에 근거(프로파일·경합 창)로 답함", "HW 결정에 면적 비용이 항상 따라붙음", "사람은 검토자로, 반복은 AI로 역할 분리"], C.orange],
+  [["정성적 효과", ["HW-SW 최적화까지 실리콘 전에 — 기존 FPGA·에뮬 흐름 앞에 추가되는 단계", "\"왜 느린가\"에 근거(프로파일·경합 창)로 답함", "HW 결정에 면적 비용이 항상 따라붙음", "사람은 검토자로, 반복은 AI로 역할 분리"], C.orange],
    ["정량적 효과", ["탐색 시간 [사람 __일 → AI __시간]", "추론 cycle [베이스라인 대비 −__%]", "같은 성능에 면적 [−__%]", "실험 1회 [__초], 하루 [__]회"], C.teal],
    ["교육 · 실무 연계", ["[교과목: 컴퓨터구조 · 임베디드 · SoC 설계 — 메모리 계층·버스 경합을 실험으로 체득]", "[실무: 신규 SoC 펌웨어 선개발, RTL 파형(WaveScope) 교차 검증에 즉시 적용]", "[다음: RISC-V·멀티코어, 실제 프로젝트 워크로드 투입]"], C.ink]].forEach((c, i) => {
     const x = 80 + i * 596, w = 568; card(s, x, 300, w, 520); R(s, x, 300, w, 6, c[2]);
@@ -272,36 +303,36 @@ function table(s, rows, x, y, w, colW, o = {}) {
   T(s, "감사합니다 · Q&A", 80, 880, 800, 50, { size: 34, bold: true }); T(s, "[발표자 이름] · [이메일]", 1040, 890, 800, 40, { size: 26, color: C.mute, align: "right" });
 }
 
-// 11. appendix-req
+// 12. appendix-req
 {
   const s = base("부록 — 요구사항 분석: 기존 수단과의 비교", "Q&A 대비용. '왜 기존 도구로 안 되나', '왜 gem5 안 썼나'가 오면 이 장을 띄운다.");
-  H2(s, "실리콘 이전에 필요한 것 다섯 가지, 기존 수단은 하나씩 빠져 있습니다", 160, 60, 80);
+  H2(s, "초 단위 루프에 필요한 것 다섯 가지, 기존 수단은 하나씩 빠져 있습니다", 160, 60, 80);
   const o = C.orangeText, g = C.tealText;
   table(s, [["필요한 것", "RTL 시뮬", "FPGA · 에뮬레이터", "기능(LT) 시뮬", "이 과제"],
     ["R1 · SW를 개발할 수 있는 속도", { t: "✕ 수 KIPS", color: o }, "○", "○", { t: "○ 50배+ vs RTL", color: g, bold: true }],
     ["R2 · cycle 수준 정확도", "○", "○", { t: "✕ 타이밍 없음", color: o }, { t: "○ 99.7%", color: g, bold: true }],
-    ["R3 · 원인을 보여주는 분석 데이터", "△ 파형뿐", { t: "✕ 안이 안 보임", color: o }, "△", { t: "○ callgrind + 파형", color: g, bold: true }],
+    ["R3 · 원인을 보여주는 분석 데이터", "△ 파형뿐", "△ 프로브·재합성 필요", "△", { t: "○ callgrind + 파형", color: g, bold: true }],
     ["R4 · HW 구조를 바꿔 볼 수 있음", { t: "✕ RTL 재작성", color: o }, { t: "✕ 재합성 수 시간", color: o }, "△", { t: "○ config 한 줄", color: g, bold: true }],
     ["R5 · 반복을 사람 대신 돌릴 수 있음", "–", "–", "–", { t: "○ AI 루프 + 사람 검토", color: g, bold: true }]], 80, 290, 1760, [493, 317, 317, 317, 316], { size: 28, rowH: 74 });
-  T(s, "R1~R4를 한 플랫폼이 동시에 만족해야 R5(자동 최적화 루프)가 가능합니다. 공개 도구 참고: gem5는 Cortex-M 미지원, GVSoC는 RISC-V 전용, Arm Fast Model은 기능 수준(LT).", 80, 790, 1700, 100, { size: 30, color: C.body, lineSpacing: 1.4 });
+  T(s, "R1~R4를 한 플랫폼이 동시에 만족해야 R5(자동 최적화 루프)가 가능합니다. FPGA·에뮬레이터는 대체 대상이 아니라 루프 결과의 검증 수단(WaveScope). 공개 도구 참고: gem5는 Cortex-M 미지원, GVSoC는 RISC-V 전용, Arm Fast Model은 기능 수준(LT).", 80, 790, 1700, 100, { size: 30, color: C.body, lineSpacing: 1.4 });
 }
 
-// 12. appendix-loopfit
+// 13. appendix-loopfit
 {
-  const s = base("부록 — FPGA · 에뮬레이터 대비 반복 실험 적합성", "Q&A용. 'FPGA나 에뮬레이터 쓰면 되지 않나': 빠르고 정확하지만 안이 안 보이고 HW를 바꾸려면 재합성이 필요해서 하루 수백 번 도는 루프에는 맞지 않습니다. 그 파형은 WaveScope로 가져와 검증에 씁니다.");
-  H2(s, "빠르고 정확한 것만으로는 부족합니다 — 안이 보이고, HW를 바로 바꿀 수 있어야 루프가 돕니다", 160, 54, 130);
+  const s = base("부록 — FPGA · 에뮬레이터 대비 반복 실험 적합성", "Q&A용. 'FPGA나 에뮬레이터 쓰면 되지 않나': 빠르고 정확하고 안을 볼 수도 있지만, 관찰 지점을 바꾸거나 HW 구조를 바꾸면 재합성이라 한 바퀴가 시간 단위입니다. 하루 수백 번 도는 루프에는 맞지 않고, 대체가 아니라 앞단 옵션입니다. 그 파형은 WaveScope로 가져와 검증에 씁니다.");
+  H2(s, "빠르고 정확한 것만으로는 부족합니다 — 보고 바꾸는 한 바퀴가 초 단위여야 루프가 돕니다", 160, 54, 130);
   const X = 80, Y = 320, W = 1060, Hh = 580; card(s, X, Y, W, Hh);
   Line(s, X + 120, Y + 480, X + 1000, Y + 480, "B8B4A8", 2.5, { end: "triangle" }); Line(s, X + 120, Y + 480, X + 120, Y + 50, "B8B4A8", 2.5, { end: "triangle" });
   Ellipse(s, X + 160, Y + 70, 220, 220, C.orange); T(s, "TLM", X + 160, Y + 70, 220, 220, { size: 40, bold: true, align: "center", valign: "middle" });
   Ellipse(s, X + 680, Y + 90, 190, 190, C.ink); T(s, "RTL\n시뮬", X + 680, Y + 90, 190, 190, { size: 32, bold: true, color: C.white, align: "center", valign: "middle" });
   Ellipse(s, X + 740, Y + 290, 190, 190, C.ink); T(s, "FPGA\n에뮬레이터", X + 740, Y + 290, 190, 190, { size: 30, bold: true, color: C.white, align: "center", valign: "middle" });
   T(s, "모든 이벤트 관측 ·\nHW 변경 = config 한 줄", X + 120, Y + 302, 300, 60, { size: 23, color: C.body, align: "center" });
-  T(s, "파형 전부 · 그러나 느림 · RTL 수정", X + 580, Y + 52, 400, 30, { size: 23, color: C.body, align: "center" });
-  T(s, "프로브 신호만 · 재합성 · 장비 공유", X + 640, Y + 494, 360, 30, { size: 23, color: C.body, align: "center" });
-  T(s, "C-model:\nHW가 없어 축 밖", X + 420, Y + 400, 240, 60, { size: 23, color: C.mute, align: "center" });
-  T(s, "초 (config)", X + 140, Y + 540, 300, 30, { size: 23, color: C.mute }); T(s, "HW 구조 한 번 바꾸는 시간 → 시간~일", X + 560, Y + 540, 440, 30, { size: 23, color: C.mute, align: "right" });
-  T(s, "내부\n관측 ↑", X + 14, Y + 40, 100, 60, { size: 23, color: C.mute, align: "right" }); T(s, "낮음", X + 14, Y + 440, 100, 30, { size: 23, color: C.mute, align: "right" });
-  [["관측성", "함수별 cycle, 버스 경합, 스톨 원인을 주지 않음. 파형을 뽑으려면 프로브·트레이스 IP·용량 제약"], ["HW 변경 비용", "RTL이 있어야 하고, 구조를 바꾸면 재합성 수 시간. 하루 수백 회 루프에 들어갈 수 없음"], ["가용 시점 · 비용", "RTL이 어느 정도 완성된 뒤에야 가능. 장비가 비싸 여러 실험을 동시에 돌리기 어려움"]].forEach((r, i) => {
+  T(s, "파형 전부 · 그러나 느림 · RTL 수정", X + 560, Y + 52, 420, 30, { size: 23, color: C.body, align: "center" });
+  T(s, "FPGA·에뮬: 프로브 · 재합성\n신호 수 제한 · 장비 공유", X + 420, Y + 330, 300, 60, { size: 23, color: C.body, align: "center", lineSpacing: 1.3 });
+  T(s, "C-model: HW가 없어 축 밖", X + 420, Y + 250, 300, 30, { size: 23, color: C.mute, align: "center" });
+  T(s, "초 (config)", X + 140, Y + 540, 300, 30, { size: 23, color: C.mute }); T(s, "HW 구조 변경 1회 → 시간~일", X + 520, Y + 540, 480, 30, { size: 23, color: C.mute, align: "right" });
+  T(s, "관측 비용\n없음 ↑", X + 14, Y + 40, 100, 60, { size: 23, color: C.mute, align: "right" }); T(s, "프로브\n재합성", X + 14, Y + 426, 100, 60, { size: 23, color: C.mute, align: "right" });
+  [["관측성", "프로브·트레이스 IP를 심고 재합성해야 보임. 신호 수 제한, 스톨 원인은 바로 안 나옴"], ["HW 변경 비용", "RTL이 있어야 하고, 구조를 바꾸면 재합성 수 시간. 하루 수백 회 루프에 들어갈 수 없음"], ["가용 시점 · 비용", "RTL이 어느 정도 완성된 뒤에야 가능. 장비가 비싸 여러 실험을 동시에 돌리기 어려움"]].forEach((r, i) => {
     const y = 330 + i * 150; R(s, 1190, y, 8, 120, C.ink); T(s, r[0], 1226, y, 614, 42, { size: 32, bold: true }); T(s, r[1], 1226, y + 46, 614, 80, { size: 25, color: C.body, lineSpacing: 1.35 });
   });
   R(s, 1190, 790, 650, 110, C.ink, { radius: 12 }); T(s, [{ text: "그래서 경쟁이 아니라 연동: 이들의 파형을 " }, { text: "WaveScope", options: { bold: true } }, { text: "로 가져와 TLM 결과를 검증" }], 1216, 790, 600, 110, { size: 25, color: "F5F4EE", valign: "middle", lineSpacing: 1.3 });
