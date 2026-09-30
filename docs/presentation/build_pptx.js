@@ -7,7 +7,7 @@ const SANS = variant === "basic" ? "Arial" : "IBM Plex Sans";
 const MONO = variant === "basic" ? "Courier New" : "JetBrains Mono";
 const OUT = variant === "basic" ? "deck_basic_fonts.pptx" : "deck_current_fonts.pptx";
 
-const C = { ink: "0F1B2D", body: "4A5568", mute: "6B7280", paper: "F7F6F1", line: "DDD9CC",
+const C = { ink: "0F1B2D", body: "4A5568", mute: "6B7280", paper: "F2F4F7", line: "D9DEE6",
   orange: "E8A33D", orangeText: "B8791F", teal: "2FA6A0", tealText: "1F7F7A", band: "111111",
   white: "FFFFFF", navy2: "16263D", navyMute: "8FA3B8", navySoft: "BFD8D5", navyLine: "2A3B55" };
 
@@ -90,26 +90,26 @@ function table(s, rows, x, y, w, colW, o = {}) {
 {
   const s = base("1. 과제 배경 — 개발은 이미 실리콘 앞에 와 있다",
     "40초. '실리콘 전에 개발'은 새로운 얘기가 아니라는 것을 먼저 인정하고 시작한다 (심사위원 다수가 FPGA·에뮬레이터·벤더 도구를 안다). 포인트는 '못 본다'가 아니라 '한 번 보고 한 번 바꿔 보는 반복이 시간 단위'라는 것. 세 번째 줄에서 기존 도구가 사라지지 않고 검증 역할로 남는 것을 손으로 짚는다 — 8장 WaveScope가 이 약속을 받는다.");
-  T(s, [{ text: "실리콘 전에 개발하는 것은 이미 당연합니다.", options: { breakLine: true } }, { text: "이제는 실리콘 전에 " }, { text: "최적화까지", options: { color: C.orangeText } }, { text: " 끝내야 합니다" }], 80, 150, 1760, 140, { size: 56, bold: true, lineSpacing: 1.1 });
+  T(s, [{ text: "실리콘 전에 개발하는 것은 이미 당연합니다.", options: { breakLine: true } }, { text: "이제는 실리콘 전에 " }, { text: "최적화까지", options: { color: C.orangeText } }, { text: " — 더 빨리, 더 좋은 제품으로" }], 80, 150, 1760, 140, { size: 56, bold: true, lineSpacing: 1.1 });
   const X = 80, Y = 300; card(s, X, Y, 1760, 520);
-  Line(s, X + 240, Y + 156, X + 1720, Y + 156, "E4E0D4", 1.5); Line(s, X + 240, Y + 306, X + 1720, Y + 306, "E4E0D4", 1.5);
+  Line(s, X + 240, Y + 156, X + 1720, Y + 156, "DFE4EB", 1.5); Line(s, X + 240, Y + 306, X + 1720, Y + 306, "DFE4EB", 1.5);
   Line(s, X + 740, Y + 40, X + 740, Y + 470, C.orangeText, 1.5, { dash: "dash" });
   T(s, "실리콘", X + 754, Y + 18, 200, 30, { size: 21, color: C.orangeText });
   T(s, "TAT ↓ · AI로 개발 속도 ↑", X + 1300, Y + 16, 430, 30, { size: 22, mono: true, color: C.orangeText, align: "right", charSpacing: 2 });
   const rows = [["과거", 66, C.ink], ["현재", 196, C.ink], ["이 과제", 346, C.orangeText]];
   rows.forEach(([t, y, c]) => { T(s, t, X + 40, Y + y, 180, 52, { size: 30, bold: true, color: c, valign: "middle" }); R(s, X + 240, Y + y, 460, 52, C.ink, { radius: 8 }); T(s, "HW 설계", X + 240, Y + y, 460, 52, { size: 25, bold: true, color: C.white, align: "center", valign: "middle" }); });
   const bar = (x, y, w, h, fill, text, size, color) => { R(s, x, y, w, h, fill, { radius: 8 }); T(s, text, x, y, w, h, { size, bold: true, color, align: "center", valign: "middle" }); };
-  const done = (x, y) => { Line(s, x, y, x, y + 52, C.orangeText, 3); T(s, "완성", x + 10, y + 12, 60, 30, { size: 22, bold: true, color: C.orangeText }); };
+  const done = (x, y, sub, strong) => { Line(s, x, y, x, y + 52, C.orangeText, 3); T(s, [{ text: "완성", options: { bold: true, breakLine: true } }, { text: sub, options: { fontSize: pt(19), bold: !!strong, color: strong ? C.orangeText : C.mute } }], x + 10, y - 2, 150, 60, { size: 22, color: C.orangeText, lineSpacing: 1.15 }); };
   // 과거
-  bar(X + 760, Y + 66, 320, 52, "B8B4A8", "SW 개발", 25, C.white); bar(X + 1100, Y + 66, 260, 52, "B8B4A8", "최적화 (SW만)", 25, C.white); done(X + 1382, Y + 66);
-  T(s, "SW는 실리콘 뒤에 시작\nHW는 이미 고정", X + 1460, Y + 64, 280, 60, { size: 23, color: C.body, lineSpacing: 1.3 });
+  bar(X + 760, Y + 66, 320, 52, "B3B9C4", "SW 개발", 25, C.white); bar(X + 1100, Y + 66, 260, 52, "B3B9C4", "최적화 (SW만)", 25, C.white); done(X + 1382, Y + 66, "SW만 최적");
+  T(s, "SW는 실리콘 뒤에\nHW는 이미 고정", X + 1520, Y + 64, 220, 60, { size: 23, color: C.body, lineSpacing: 1.3 });
   // 현재
-  bar(X + 430, Y + 254, 270, 42, C.mute, "SW 개발 · FPGA/에뮬", 22, C.white); bar(X + 760, Y + 196, 260, 52, "B8B4A8", "최적화 (SW만)", 25, C.white); done(X + 1042, Y + 196);
-  T(s, [{ text: "SW는 앞으로 왔지만 보고 바꿔 보는 1회 = " }, { text: "시간~일", options: { bold: true, breakLine: true } }, { text: "관찰 지점마다 프로브 삽입 · 구조 변경마다 재합성 · 장비 공유", options: { color: C.mute, fontSize: pt(21) } }], X + 1140, Y + 200, 600, 64, { size: 23, color: C.body, lineSpacing: 1.3 });
+  bar(X + 430, Y + 254, 270, 42, C.mute, "SW 개발 · FPGA/에뮬", 22, C.white); bar(X + 760, Y + 196, 260, 52, "B3B9C4", "최적화 (SW만)", 25, C.white); done(X + 1042, Y + 196, "SW만 최적");
+  T(s, [{ text: "SW는 앞으로 왔지만 보고 바꿔 보는 1회 = " }, { text: "시간~일", options: { bold: true, breakLine: true } }, { text: "관찰마다 프로브 삽입 · 변경마다 재합성 · 장비 공유", options: { color: C.mute, fontSize: pt(21) } }], X + 1180, Y + 200, 560, 64, { size: 23, color: C.body, lineSpacing: 1.3 });
   // 이 과제
-  bar(X + 250, Y + 404, 450, 52, C.orange, "가상 플랫폼: HW+SW 최적화 · AI 루프", 21, C.ink); bar(X + 400, Y + 462, 300, 40, C.mute, "검증: FPGA · 에뮬 · RTL", 19, C.white); done(X + 762, Y + 346);
-  T(s, [{ text: "HW 구조까지 함께, 1회 = " }, { text: "초", options: { bold: true, color: C.orangeText } }, { text: " · 하루 수백 번", options: { breakLine: true } }, { text: "기존 도구는 그대로 — 역할은 " }, { text: "검증", options: { bold: true, breakLine: true } }, { text: "실리콘 이후에 남는 일이 줄어 완성이 앞으로" }], X + 860, Y + 352, 580, 96, { size: 23, color: C.body, lineSpacing: 1.3 });
-  T(s, "가로축 = 시간 (개념도)\n세로 점선 = 실리콘 시점", X + 1460, Y + 352, 280, 60, { size: 21, color: C.mute, lineSpacing: 1.3 });
+  bar(X + 250, Y + 404, 450, 52, C.orange, "가상 플랫폼: HW+SW 최적화 · AI 루프", 21, C.ink); bar(X + 400, Y + 462, 300, 40, C.mute, "검증: FPGA · 에뮬 · RTL", 19, C.white); bar(X + 760, Y + 346, 180, 52, "B3B9C4", "실리콘 최종 검증", 22, C.white); done(X + 962, Y + 346, "HW+SW 최적", true);
+  T(s, [{ text: "HW 구조까지 함께, 1회 = " }, { text: "초", options: { bold: true, color: C.orangeText } }, { text: " · 하루 수백 번", options: { breakLine: true } }, { text: "기존 도구는 그대로, 역할은 " }, { text: "검증", options: { bold: true, breakLine: true } }, { text: "→ 같은 면적에 더 빠르게, 같은 성능에 더 작게", options: { bold: true, color: C.orangeText } }], X + 1120, Y + 346, 620, 96, { size: 23, color: C.body, lineSpacing: 1.3 });
+  T(s, "가로축 = 시간 (개념도) · 세로 점선 = 실리콘 시점", X + 1120, Y + 462, 620, 30, { size: 21, color: C.mute });
   [["»", "TAT는 계속 줄고, AI가 개발 속도를 한 번 더 끌어올리는 중", C.tealText], ["○", "FPGA·에뮬레이터도 안을 볼 수는 있지만, 보고 바꾸는 반복이 느리다", C.tealText], ["✱", "대체가 아니라 앞단에 추가되는 옵션 — 여기서 찾은 답은 기존 도구로 검증", C.orangeText]].forEach((c, i) => {
     const x = 80 + i * 596, w = 568; card(s, x, 850, w, 90, { radius: 12 }); T(s, c[0], x + 24, 850, 44, 90, { size: 34, color: c[2], valign: "middle" }); T(s, c[1], x + 76, 850, w - 100, 90, { size: 25, valign: "middle", lineSpacing: 1.3 });
   });
@@ -122,8 +122,8 @@ function table(s, rows, x, y, w, colW, o = {}) {
   H2(s, "그러려면 빠르면서 cycle을 아는 시뮬레이터가 필요한데,\n그 자리가 비어 있었습니다", 150, 50, 130);
   const X = 80, Y = 350, W = 1060, Hh = 580;
   card(s, X, Y, W, Hh);
-  Line(s, X + 120, Y + 520, X + 1000, Y + 520, "B8B4A8", 2.5, { end: "triangle" });
-  Line(s, X + 120, Y + 520, X + 120, Y + 60, "B8B4A8", 2.5, { end: "triangle" });
+  Line(s, X + 120, Y + 520, X + 1000, Y + 520, "B3B9C4", 2.5, { end: "triangle" });
+  Line(s, X + 120, Y + 520, X + 120, Y + 60, "B3B9C4", 2.5, { end: "triangle" });
   Ellipse(s, X + 160, Y + 80, 200, 200, C.ink); Ellipse(s, X + 770, Y + 330, 200, 200, C.ink); Ellipse(s, X + 450, Y + 170, 230, 230, C.orange);
   T(s, "RTL\ncycle-level", X + 160, Y + 80, 200, 200, { size: 34, bold: true, color: C.white, align: "center", valign: "middle" });
   T(s, "C-model\n알고리즘", X + 770, Y + 330, 200, 200, { size: 34, bold: true, color: C.white, align: "center", valign: "middle" });
@@ -231,7 +231,7 @@ function table(s, rows, x, y, w, colW, o = {}) {
   const s = base("2. 개발 및 설계 — WaveScope (신규): 기존 도구와의 연결", "45초. 이번 과제에서 새로 만든 것. 2장에서 '여기서 찾은 답은 기존 도구로 검증한다'고 했으므로 방어가 아니라 '그 검증을 같은 형식으로 하게 만들었다'로 시작. '왼쪽 네 곳 어디서 나온 파형이든 오른쪽 같은 표가 된다'.");
   H2(s, "파형만 있으면 어떤 플랫폼이든 같은 프로파일이 나옵니다", 160, 60, 80);
   const Y = 270;
-  ["가상 플랫폼", "RTL 시뮬레이터", "에뮬레이터", "FPGA 프로토타입"].forEach((t, i) => { card(s, 80, Y + i * 120, 320, 90, { radius: 14 }); T(s, t, 80, Y + i * 120, 320, 90, { size: 30, bold: true, align: "center", valign: "middle" }); Line(s, 400, Y + i * 120 + 45, 590, Y + 225, "B8B4A8", 3); });
+  ["가상 플랫폼", "RTL 시뮬레이터", "에뮬레이터", "FPGA 프로토타입"].forEach((t, i) => { card(s, 80, Y + i * 120, 320, 90, { radius: 14 }); T(s, t, 80, Y + i * 120, 320, 90, { size: 30, bold: true, align: "center", valign: "middle" }); Line(s, 400, Y + i * 120 + 45, 590, Y + 225, "B3B9C4", 3); });
   R(s, 590, Y + 130, 260, 190, C.ink, { radius: 16 });
   for (let r = 0; r < 3; r++) { let x0 = 610; [32, 32, 32, 32, 32, 32, 40].forEach((len, i) => { const yl = Y + 175 + r * 45 - (i % 2 ? 14 : 0); Line(s, x0, yl, x0 + len, yl, C.navyMute, 2.5); x0 += len; }); }
   T(s, "파형 (clk + PC)", 590, Y + 96, 260, 30, { size: 23, mono: true, color: C.body, align: "center" });
@@ -273,8 +273,8 @@ function table(s, rows, x, y, w, colW, o = {}) {
   const s = base("3. 검증 및 결과 — PoC 결과", "60초. 회색 점(사람 출발점)→주황 점(AI 도착점) 화살표가 'AI가 HW도 SW도 바꿨다'는 증거. 점선은 헤드라인. 실측 후 그림 교체. 검은 박스의 HW 변경 목록이 co-optimization의 실체.");
   H2(s, "[헤드라인 — 예) 예산 280에서 AI가 고른 HW+SW가 예산 470의 사람 출발점보다 빠름: 면적 −40%, 같은 성능]", 160, 42, 120);
   const X = 80, Y = 300; card(s, X, Y, 960, 520);
-  Line(s, X + 100, Y + 450, X + 920, Y + 450, "B8B4A8", 2); Line(s, X + 100, Y + 450, X + 100, Y + 50, "B8B4A8", 2);
-  [300, 500, 830].forEach(x => Line(s, X + x, Y + 60, X + x, Y + 450, "CFCBBF", 2, { dash: "dash" }));
+  Line(s, X + 100, Y + 450, X + 920, Y + 450, "B3B9C4", 2); Line(s, X + 100, Y + 450, X + 100, Y + 50, "B3B9C4", 2);
+  [300, 500, 830].forEach(x => Line(s, X + x, Y + 60, X + x, Y + 450, "CBD2DC", 2, { dash: "dash" }));
   [[280, 150], [480, 250], [810, 345]].forEach(([x, y]) => Ellipse(s, X + x - 14, Y + y - 14, 28, 28, C.mute));
   [[272, 166, 212, 282], [472, 266, 402, 382], [802, 360, 734, 426]].forEach(([a, b, c, d]) => { Line(s, X + a, Y + b, X + c, Y + d, C.orange, 5, { end: "triangle" }); Ellipse(s, X + c - 16, Y + d - 16, 32, 32, C.orange); });
   Line(s, X + 402, Y + 382, X + 810, Y + 345, C.tealText, 2.5, { dash: "dash" });
@@ -322,7 +322,7 @@ function table(s, rows, x, y, w, colW, o = {}) {
   const s = base("부록 — FPGA · 에뮬레이터 대비 반복 실험 적합성", "Q&A용. 'FPGA나 에뮬레이터 쓰면 되지 않나': 빠르고 정확하고 안을 볼 수도 있지만, 관찰 지점을 바꾸거나 HW 구조를 바꾸면 재합성이라 한 바퀴가 시간 단위입니다. 하루 수백 번 도는 루프에는 맞지 않고, 대체가 아니라 앞단 옵션입니다. 그 파형은 WaveScope로 가져와 검증에 씁니다.");
   H2(s, "빠르고 정확한 것만으로는 부족합니다 — 보고 바꾸는 한 바퀴가 초 단위여야 루프가 돕니다", 160, 54, 130);
   const X = 80, Y = 320, W = 1060, Hh = 580; card(s, X, Y, W, Hh);
-  Line(s, X + 120, Y + 480, X + 1000, Y + 480, "B8B4A8", 2.5, { end: "triangle" }); Line(s, X + 120, Y + 480, X + 120, Y + 50, "B8B4A8", 2.5, { end: "triangle" });
+  Line(s, X + 120, Y + 480, X + 1000, Y + 480, "B3B9C4", 2.5, { end: "triangle" }); Line(s, X + 120, Y + 480, X + 120, Y + 50, "B3B9C4", 2.5, { end: "triangle" });
   Ellipse(s, X + 160, Y + 70, 220, 220, C.orange); T(s, "TLM", X + 160, Y + 70, 220, 220, { size: 40, bold: true, align: "center", valign: "middle" });
   Ellipse(s, X + 680, Y + 90, 190, 190, C.ink); T(s, "RTL\n시뮬", X + 680, Y + 90, 190, 190, { size: 32, bold: true, color: C.white, align: "center", valign: "middle" });
   Ellipse(s, X + 740, Y + 290, 190, 190, C.ink); T(s, "FPGA\n에뮬레이터", X + 740, Y + 290, 190, 190, { size: 30, bold: true, color: C.white, align: "center", valign: "middle" });

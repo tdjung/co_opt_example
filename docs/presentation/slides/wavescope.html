@@ -3,11 +3,11 @@
 <h2 style="font-size:60px; font-weight:600; line-height:1.15">파형만 있으면 어떤 플랫폼이든 같은 프로파일이 나옵니다</h2>
 <div style="position:relative; width:1760px; height:480px">
 <svg aria-label="네 종류 플랫폼의 파형이 WaveScope를 거쳐 하나의 callgrind가 되고 Profiler에서 비교된다" viewBox="0 0 1760 480" style="position:absolute; left:0; top:0; width:1760px; height:480px">
-<rect x="0" y="0" width="320" height="90" rx="14" fill="#F7F6F1" stroke="#DDD9CC" stroke-width="2"/>
-<rect x="0" y="120" width="320" height="90" rx="14" fill="#F7F6F1" stroke="#DDD9CC" stroke-width="2"/>
-<rect x="0" y="240" width="320" height="90" rx="14" fill="#F7F6F1" stroke="#DDD9CC" stroke-width="2"/>
-<rect x="0" y="360" width="320" height="90" rx="14" fill="#F7F6F1" stroke="#DDD9CC" stroke-width="2"/>
-<path d="M320 45 Q450 45 500 225 M320 165 Q450 165 500 225 M320 285 Q450 285 500 225 M320 405 Q450 405 500 225" stroke="#B8B4A8" stroke-width="4" fill="none"/>
+<rect x="0" y="0" width="320" height="90" rx="14" fill="#F2F4F7" stroke="#D9DEE6" stroke-width="2"/>
+<rect x="0" y="120" width="320" height="90" rx="14" fill="#F2F4F7" stroke="#D9DEE6" stroke-width="2"/>
+<rect x="0" y="240" width="320" height="90" rx="14" fill="#F2F4F7" stroke="#D9DEE6" stroke-width="2"/>
+<rect x="0" y="360" width="320" height="90" rx="14" fill="#F2F4F7" stroke="#D9DEE6" stroke-width="2"/>
+<path d="M320 45 Q450 45 500 225 M320 165 Q450 165 500 225 M320 285 Q450 285 500 225 M320 405 Q450 405 500 225" stroke="#B3B9C4" stroke-width="4" fill="none"/>
 <rect x="510" y="130" width="260" height="190" rx="16" fill="#0F1B2D"/>
 <path d="M770 225 L850 225" stroke="#2FA6A0" stroke-width="8"/><path d="M880 225 l-34 -20 v40 z" fill="#2FA6A0"/>
 <rect x="890" y="155" width="320" height="140" rx="20" fill="#2FA6A0"/>
@@ -29,8 +29,8 @@
 <p style="position:absolute; left:1352px; top:380px; width:390px; font-size:22px; color:#8FA3B8">(숫자는 형식 예시)</p>
 </div>
 <div style="display:flex; gap:24px">
-<div style="flex:1; display:flex; align-items:center; gap:18px; background:#F7F6F1; padding:22px 30px; border:1px solid #DDD9CC; border-radius:12px"><x-icon name="Verified" style="width:38px; height:38px; color:#1F7F7A"></x-icon><p style="font-size:27px; line-height:1.3">2장의 약속 — TLM에서 찾은 최적점을 <b>RTL·에뮬레이터 파형으로 검증</b>, 모델 정합성을 루프 안에서 관리</p></div>
-<div style="flex:1; display:flex; align-items:center; gap:18px; background:#F7F6F1; padding:22px 30px; border:1px solid #DDD9CC; border-radius:12px"><x-icon name="Search" style="width:38px; height:38px; color:#1F7F7A"></x-icon><p style="font-size:27px; line-height:1.3">단독으로도 사용 — 설계·시뮬레이터 수정 없이 <b>기존 파형에서 바로</b> 프로파일</p></div>
+<div style="flex:1; display:flex; align-items:center; gap:18px; background:#F2F4F7; padding:22px 30px; border:1px solid #D9DEE6; border-radius:12px"><x-icon name="Verified" style="width:38px; height:38px; color:#1F7F7A"></x-icon><p style="font-size:27px; line-height:1.3">2장의 약속 — TLM에서 찾은 최적점을 <b>RTL·에뮬레이터 파형으로 검증</b>, 모델 정합성을 루프 안에서 관리</p></div>
+<div style="flex:1; display:flex; align-items:center; gap:18px; background:#F2F4F7; padding:22px 30px; border:1px solid #D9DEE6; border-radius:12px"><x-icon name="Search" style="width:38px; height:38px; color:#1F7F7A"></x-icon><p style="font-size:27px; line-height:1.3">단독으로도 사용 — 설계·시뮬레이터 수정 없이 <b>기존 파형에서 바로</b> 프로파일</p></div>
 </div>
 <aside>45초. 이번 과제에서 새로 만든 것. 2장에서 "여기서 찾은 답은 기존 도구로 검증한다"고 했으므로 방어가 아니라 "그 검증을 같은 형식으로 하게 만들었다"로 시작. "왼쪽 네 곳 어디서 나온 파형이든 오른쪽 같은 표가 된다". 선행 기술(CoreSight ETM, E-Trace, TracerV)은 트레이스 IP·프로브·벤더 도구가 전제 — 질문 시 답변.</aside>
 </section>
