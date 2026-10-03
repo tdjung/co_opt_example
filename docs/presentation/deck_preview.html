@@ -377,10 +377,11 @@ h1,h2,h3,p,ul{margin:0}ul{padding-left:1.1em}table{border-collapse:collapse}th,t
 
 <section id="results" data-transition="fade" style="background:#FFFFFF; color:#0F1B2D; font-family:'IBM Plex Sans', Arial, sans-serif; padding:160px 80px 80px; display:flex; flex-direction:column; gap:24px">
 <div style="position:absolute; left:0; top:0; width:1920px; height:116px; background:#111111"></div><p style="position:absolute; left:80px; top:0; width:1760px; height:116px; line-height:3.625; font-size:32px; font-weight:600; color:#FFFFFF">3. 검증 및 결과 — PoC 결과</p>
-<h2 style="font-size:52px; font-weight:600; line-height:1.15">세 가지 HW 구조 모두 정확도 손실 없이 cycle −[__]~[__]%, 면적 −[__]~[__]%</h2>
-<div style="display:flex; gap:36px; align-items:stretch">
-<div style="width:960px; height:600px; position:relative; background:#F2F4F7; border:1px solid #D9DEE6; border-radius:16px">
-<svg aria-label="면적 대비 추론 cycle: 예산별로 사람 출발점에서 AI 도착점으로 향하는 화살표 세 개와 예산 경계선" viewBox="0 0 960 600" style="position:absolute; left:0; top:0; width:960px; height:600px"><g transform="translate(0,40)">
+<h2 style="font-size:46px; font-weight:600; line-height:1.15">세 가지 HW 구조 모두 정확도 손실 없이 cycle −[__]~[__]%, 면적 −[__]~[__]%</h2>
+<div style="display:flex; gap:36px; align-items:flex-start">
+<div style="width:960px; display:flex; flex-direction:column; gap:12px">
+<div style="width:960px; height:520px; position:relative; background:#F2F4F7; border:1px solid #D9DEE6; border-radius:16px">
+<svg aria-label="면적 대비 추론 cycle: 예산별로 사람 출발점에서 AI 도착점으로 향하는 화살표 세 개와 예산 경계선" viewBox="0 0 960 520" style="position:absolute; left:0; top:0; width:960px; height:520px"><g>
 <path d="M100 450 L920 450 M100 450 L100 50" stroke="#B3B9C4" stroke-width="2" fill="none"/>
 <path d="M300 60 V450 M500 60 V450 M830 60 V450" stroke="#CBD2DC" stroke-width="2" stroke-dasharray="8 8"/>
 <circle cx="280" cy="150" r="14" fill="#6B7280"/><circle cx="480" cy="250" r="14" fill="#6B7280"/><circle cx="810" cy="345" r="14" fill="#6B7280"/>
@@ -390,40 +391,45 @@ h1,h2,h3,p,ul{margin:0}ul{padding-left:1.1em}table{border-collapse:collapse}th,t
 <circle cx="212" cy="282" r="16" fill="#E8A33D"/><circle cx="402" cy="382" r="16" fill="#E8A33D"/><circle cx="734" cy="426" r="16" fill="#E8A33D"/>
 <path d="M402 382 L810 345" stroke="#1F7F7A" stroke-width="3" stroke-dasharray="6 8"/>
 </g></svg>
-<p style="position:absolute; left:20px; top:18px; width:300px; font-size:23px; color:#6B7280">추론 cycle ↑</p>
-<p style="position:absolute; right:24px; bottom:22px; width:300px; font-size:23px; color:#6B7280; text-align:right">면적 (상대) →</p>
-<p style="position:absolute; left:220px; top:498px; width:160px; font-size:22px; color:#6B7280; text-align:center">Base · ≤170</p>
-<p style="position:absolute; left:420px; top:498px; width:160px; font-size:22px; color:#6B7280; text-align:center">+TCM · ≤280</p>
-<p style="position:absolute; left:730px; top:498px; width:200px; font-size:22px; color:#6B7280; text-align:center">+TCM+MAC · ≤470</p>
-<p style="position:absolute; left:296px; top:226px; width:170px; font-size:24px; font-weight:700; color:#B8791F; line-height:1.25">cycle −[__]%<br>면적 −[__]%</p>
-<p style="position:absolute; left:496px; top:340px; width:170px; font-size:24px; font-weight:700; color:#B8791F; line-height:1.25">cycle −[__]%<br>면적 −[__]%</p>
-<p style="position:absolute; left:560px; top:432px; width:170px; font-size:24px; font-weight:700; color:#B8791F; line-height:1.25">cycle −[__]%<br>면적 −[__]%</p>
-<p style="position:absolute; left:600px; top:100px; width:340px; font-size:23px; color:#4A5568; line-height:1.45">● 사람이 정한 HW + 기본 SW<br><span style="color:#B8791F">●</span> AI가 HW·SW 함께 선택<br><span style="color:#1F7F7A">- -</span> +TCM 결과 = +MAC 초기 성능</p>
-<p style="position:absolute; left:120px; top:100px; width:400px; font-size:22px; color:#6B7280">[예시 — 실측으로 교체]</p>
+<p style="position:absolute; left:20px; top:16px; width:300px; font-size:23px; color:#6B7280">추론 cycle ↑</p>
+<p style="position:absolute; right:24px; top:16px; width:300px; font-size:23px; color:#6B7280; text-align:right">면적 (상대) →</p>
+<p style="position:absolute; left:220px; top:458px; width:160px; font-size:22px; color:#6B7280; text-align:center">Base · ≤170</p>
+<p style="position:absolute; left:420px; top:458px; width:160px; font-size:22px; color:#6B7280; text-align:center">+TCM · ≤280</p>
+<p style="position:absolute; left:730px; top:458px; width:200px; font-size:22px; color:#6B7280; text-align:center">+TCM+MAC · ≤470</p>
+<p style="position:absolute; left:296px; top:186px; width:170px; font-size:24px; font-weight:700; color:#B8791F; line-height:1.25">cycle −[__]%<br>면적 −[__]%</p>
+<p style="position:absolute; left:496px; top:300px; width:170px; font-size:24px; font-weight:700; color:#B8791F; line-height:1.25">cycle −[__]%<br>면적 −[__]%</p>
+<p style="position:absolute; left:560px; top:392px; width:170px; font-size:24px; font-weight:700; color:#B8791F; line-height:1.25">cycle −[__]%<br>면적 −[__]%</p>
+<p style="position:absolute; left:600px; top:60px; width:340px; font-size:23px; color:#4A5568; line-height:1.45">● 사람이 정한 HW + 기본 SW<br><span style="color:#B8791F">●</span> AI가 HW·SW 함께 선택<br><span style="color:#1F7F7A">- -</span> +TCM 결과 = +MAC 초기 성능</p>
+<p style="position:absolute; left:120px; top:60px; width:400px; font-size:22px; color:#6B7280">[예시 — 실측으로 교체]</p>
 </div>
-<div style="flex:1; display:flex; flex-direction:column; gap:16px; justify-content:space-between">
-<table style="font-size:27px; width:100%; color:#0F1B2D; font-variant-numeric:tabular-nums">
-<tr style="background:#0F1B2D"><th style="width:34%; color:#FFFFFF">HW 구조</th><th style="width:30%; color:#FFFFFF">초기 성능 (cycle)</th><th style="width:36%; color:#FFFFFF">최적화 루프 결과</th></tr>
+<p style="font-size:21px; line-height:1.4; color:#6B7280"><b style="color:#4A5568">면적(상대)</b> = 구성 블록 비용의 합. <b style="color:#4A5568">SRAM 1 KB = 1</b>을 기준으로 각 IP의 면적을 대략적인 상대값으로 가정해 PoC 결과를 분석했으며, 실제 수치로 교체 가능</p>
+</div>
+<div style="flex:1; display:flex; flex-direction:column; gap:20px">
+<table style="font-size:26px; width:100%; color:#0F1B2D; font-variant-numeric:tabular-nums">
+<tr style="background:#0F1B2D"><th style="width:38%; color:#FFFFFF">HW 구조</th><th style="width:27%; color:#FFFFFF">초기 성능 (cycle)</th><th style="width:35%; color:#FFFFFF">최적화 루프 결과</th></tr>
 <tr style="background:#FFFFFF"><td>Base</td><td>[___] M</td><td>[___] M · <b style="color:#B8791F">−[__]%</b></td></tr>
 <tr style="background:#F2F4F7"><td>Base + TCM</td><td>[___] M</td><td>[___] M · <b style="color:#B8791F">−[__]%</b></td></tr>
 <tr style="background:#FFFFFF"><td>Base + TCM + MAC</td><td>[___] M</td><td>[___] M · <b style="color:#B8791F">−[__]%</b></td></tr>
 </table>
-<table style="font-size:27px; width:100%; color:#0F1B2D; font-variant-numeric:tabular-nums">
-<tr style="background:#0F1B2D"><th style="width:34%; color:#FFFFFF">HW 구조</th><th style="width:30%; color:#FFFFFF">초기 면적 (상대)</th><th style="width:36%; color:#FFFFFF">최적화 루프 결과</th></tr>
+<table style="font-size:26px; width:100%; color:#0F1B2D; font-variant-numeric:tabular-nums">
+<tr style="background:#0F1B2D"><th style="width:38%; color:#FFFFFF">HW 구조</th><th style="width:27%; color:#FFFFFF">초기 면적 (상대)</th><th style="width:35%; color:#FFFFFF">최적화 루프 결과</th></tr>
 <tr style="background:#FFFFFF"><td>Base</td><td>[___]</td><td>[___] · <b style="color:#B8791F">−[__]%</b></td></tr>
 <tr style="background:#F2F4F7"><td>Base + TCM</td><td>[___]</td><td>[___] · <b style="color:#B8791F">−[__]%</b></td></tr>
 <tr style="background:#FFFFFF"><td>Base + TCM + MAC</td><td>[___]</td><td>[___] · <b style="color:#B8791F">−[__]%</b></td></tr>
 </table>
-<div style="display:flex; gap:14px">
-<div style="flex:1.2; display:flex; flex-direction:column; gap:4px; background:#0F1B2D; color:#F5F4EE; padding:22px 24px; border-radius:10px"><p style="font-size:21px; color:#8FA3B8">실험 1회 · 에뮬레이터 대비</p><p style="font-size:34px; font-weight:700"><span style="color:#8FA3B8; text-decoration:line-through; font-weight:400">300분</span> → <span style="color:#2FA6A0">10분</span></p></div>
-<div style="flex:1; display:flex; flex-direction:column; gap:4px; background:#F2F4F7; padding:22px 24px; border:1px solid #D9DEE6; border-radius:10px"><p style="font-size:21px; color:#6B7280">AI 반복 · 사람 검토</p><p style="font-size:34px; font-weight:700">[__] · [__]회</p></div>
-<div style="flex:1; display:flex; flex-direction:column; gap:4px; background:#F2F4F7; padding:22px 24px; border:1px solid #D9DEE6; border-radius:10px"><p style="font-size:21px; color:#6B7280">bit-exact · ISR 제약</p><p style="font-size:34px; font-weight:700">전 실험 통과</p></div>
 </div>
 </div>
+<div style="display:flex; gap:36px">
+<div style="width:960px; display:flex; flex-direction:column; gap:8px; background:#0F1B2D; color:#F5F4EE; padding:18px 28px; border-radius:12px">
+<p style="font-size:22px; color:#8FA3B8">AI 반복 최적화 + 개발자 검토 = 루프 1회 · <b style="color:#E8A33D">4회</b>로 얻은 결과</p>
+<p style="font-size:24px; line-height:1.35">루프마다 AI가 실험 [__]회 → 개발자가 근거 검토 · HW 변경 승인 → 다음 루프. 4회 만에 세 구조 모두 수렴 — 총 실험 [__]회 · [__]시간</p>
 </div>
-
-<p style="font-size:22px; line-height:1.4; color:#6B7280"><b style="color:#4A5568">면적(상대)</b> = 구성 블록 비용의 합. <b style="color:#4A5568">SRAM 1 KB = 1</b>을 기준으로 각 IP의 면적을 대략적인 상대값으로 가정해 PoC 결과를 분석했으며, 실제 수치로 교체 가능</p>
-<aside>60초. 왼쪽 그림: 회색 점(초기)→주황 점(루프 결과) 화살표 옆 숫자를 읽는다. 오른쪽 위 표 = 성능, 아래 표 = 면적, 같은 세 구조. 검은 타일 "에뮬 300분 → 10분"은 실험 1회 기준 — 11장 정량 효과(하루 반복 횟수·탐색 기간)의 근거가 된다. 면적 단위 질문이 오면 맨 아래 각주: SRAM 1 KB = 1인 상대 단위, 블록 계수의 합. 신뢰성 질문이 오면 세 번째 타일: 모든 실험이 bit-exact와 ISR 제약을 통과했고 아닌 것은 자동 폐기.</aside>
+<div style="flex:1; display:flex; gap:20px">
+<div style="flex:1; display:flex; flex-direction:column; gap:6px; background:#F2F4F7; padding:16px 24px; border:1px solid #D9DEE6; border-radius:12px"><p style="font-size:21px; color:#6B7280">RTL 시뮬 대비 · 실행 1회</p><p style="font-size:32px; font-weight:700"><span style="color:#6B7280; text-decoration:line-through; font-weight:400">약 60분</span> → <span style="color:#1F7F7A">1분 이내</span></p></div>
+<div style="flex:1; display:flex; flex-direction:column; gap:6px; background:#F2F4F7; padding:16px 24px; border:1px solid #D9DEE6; border-radius:12px"><p style="font-size:21px; color:#6B7280">에뮬레이터 대비 · 실행 1회</p><p style="font-size:32px; font-weight:700"><span style="color:#6B7280; text-decoration:line-through; font-weight:400">약 10분</span> → <span style="color:#1F7F7A">1분 이내</span></p></div>
+</div>
+</div>
+<aside>60초. 왼쪽 그림: 회색 점(초기)→주황 점(루프 결과) 화살표 옆 숫자를 읽는다. 오른쪽 위 표 = 성능, 아래 표 = 면적, 같은 세 구조. 아래 검은 박스: "AI 반복 + 개발자 검토"가 루프 1회이고 4회로 수렴. 오른쪽 두 타일: 실행 1회가 RTL 시뮬 약 60분·에뮬레이터 약 10분 → 1분 이내 — 11장 정량 효과의 근거. 면적 단위 질문이 오면 그래프 아래 각주: SRAM 1 KB = 1인 상대 단위. 신뢰성 질문: 모든 실험이 bit-exact와 ISR 제약을 통과했고 아닌 것은 자동 폐기.</aside>
 </section>
 
 <section id="impact" data-transition="fade" style="background:#FFFFFF; color:#0F1B2D; font-family:'IBM Plex Sans', Arial, sans-serif; padding:160px 80px 80px; display:flex; flex-direction:column; gap:36px">
@@ -431,14 +437,14 @@ h1,h2,h3,p,ul{margin:0}ul{padding-left:1.1em}table{border-collapse:collapse}th,t
 <h2 style="font-size:68px; font-weight:600; line-height:1.15">실리콘을 기다리지 않습니다. 돌리고, 읽고, 고칩니다.</h2>
 <div style="display:flex; gap:28px; flex:1">
 <div style="flex:1; display:flex; flex-direction:column; gap:22px; background:#F2F4F7; padding:40px 44px; border:1px solid #D9DEE6; border-radius:16px; border-top:6px solid #E8A33D"><h3 style="font-size:38px; font-weight:600">정성적 효과</h3><ul style="font-size:31px; line-height:1.6; color:#4A5568"><li>HW·SW 최적화까지 실리콘 전에 — 기존 FPGA·에뮬레이터 흐름 앞에 추가되는 단계</li><li>"왜 느린가"에 프로파일·경합 창이라는 근거로 답함</li><li>HW 결정에 면적 비용이 항상 따라붙어 공짜 답이 없음</li><li>반복은 AI, 검토·승인은 사람 — 역할이 분리됨</li></ul></div>
-<div style="flex:1; display:flex; flex-direction:column; gap:22px; background:#F2F4F7; padding:40px 44px; border:1px solid #D9DEE6; border-radius:16px; border-top:6px solid #2FA6A0"><h3 style="font-size:38px; font-weight:600">정량적 효과</h3><ul style="font-size:31px; line-height:1.6; color:#4A5568"><li>실험 1회 <b>에뮬레이터 300분 → 10분</b>, 같은 시간에 <b>30배</b> 더 많은 시도</li><li>하루 [__]회 반복 — 사람이 손으로 하면 [__]회</li><li>같은 SW·같은 정확도로 추론 cycle <b>−[__]%</b>, 면적 <b>−[__]%</b></li><li>탐색 기간 [__]일 → [__]시간</li></ul></div>
+<div style="flex:1; display:flex; flex-direction:column; gap:22px; background:#F2F4F7; padding:40px 44px; border:1px solid #D9DEE6; border-radius:16px; border-top:6px solid #2FA6A0"><h3 style="font-size:38px; font-weight:600">정량적 효과</h3><ul style="font-size:31px; line-height:1.6; color:#4A5568"><li>실행 1회 <b>1분 이내</b> — RTL 시뮬레이션 약 60분, 에뮬레이터 약 10분 대비</li><li>AI 반복 + 개발자 검토 루프 <b>4회</b>로 수렴 — 총 실험 [__]회 · [__]시간</li><li>같은 SW·같은 정확도로 추론 cycle <b>−[__]%</b>, 면적 <b>−[__]%</b></li><li>탐색 기간 [__]일 → [__]시간</li></ul></div>
 </div>
 <div style="display:flex; align-items:center; gap:32px; background:#0F1B2D; color:#F5F4EE; padding:26px 36px; border-radius:16px">
 <p style="font-size:26px; color:#8FA3B8; width:110px">다음</p>
 <p style="font-size:27px; line-height:1.4; flex:1">실제 과제 워크로드 투입 · RTL 파형과 WaveScope 교차 검증으로 정합성 관리 · HW knob 범위 확대(버스 우선순위·캐시 정책)</p>
 <p style="font-size:30px; font-weight:600; white-space:nowrap">감사합니다 · Q&amp;A</p>
 </div>
-<aside>30초. 정량 칸 첫 줄(300분→10분)이 10장 검은 타일의 파생. 나머지 대괄호는 PoC 실측. "다음" 띠는 한 문장으로 읽고 감사 인사.
+<aside>30초. 정량 칸 첫 두 줄이 10장 아래 박스·타일의 파생. 나머지 대괄호는 PoC 실측. "다음" 띠는 한 문장으로 읽고 감사 인사.
 
 제목 후보:
 1. 실리콘보다 먼저 — Cycle-level 가상 플랫폼과 파형 기반 프로파일러 위에서 AI가 도는 HW-SW Co-Optimization

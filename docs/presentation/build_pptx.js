@@ -300,38 +300,42 @@ function table(s, rows, x, y, w, colW, o = {}) {
 
 // 10. results
 {
-  const s = base("3. 검증 및 결과 — PoC 결과", "60초. 왼쪽 그림: 회색 점(초기)→주황 점(루프 결과) 화살표 옆 숫자를 읽는다. 오른쪽 위 표 = 성능, 아래 표 = 면적, 같은 세 구조. 검은 타일 '에뮬 300분 → 10분'은 실험 1회 기준 — 11장 정량 효과(하루 반복 횟수·탐색 기간)의 근거가 된다. 면적 단위 질문이 오면 맨 아래 각주: SRAM 1 KB = 1인 상대 단위, 블록 계수의 합. 신뢰성 질문이 오면 세 번째 타일: 모든 실험이 bit-exact와 ISR 제약을 통과했고 아닌 것은 자동 폐기.");
-  H2(s, "세 가지 HW 구조 모두 정확도 손실 없이 cycle −[__]~[__]% · 면적 −[__]~[__]%", 160, 46, 80);
-  const X = 80, Y = 270; card(s, X, Y, 960, 640);
-  const oy = 60; // chart origin offset inside card
-  Line(s, X + 100, Y + oy + 450, X + 920, Y + oy + 450, "B3B9C4", 2); Line(s, X + 100, Y + oy + 450, X + 100, Y + oy + 50, "B3B9C4", 2);
-  [300, 500, 830].forEach(x => Line(s, X + x, Y + oy + 60, X + x, Y + oy + 450, "CBD2DC", 2, { dash: "dash" }));
-  [[280, 150], [480, 250], [810, 345]].forEach(([x, y]) => Ellipse(s, X + x - 14, Y + oy + y - 14, 28, 28, C.mute));
-  [[272, 166, 212, 282], [472, 266, 402, 382], [802, 360, 734, 426]].forEach(([a, b, c, d]) => { Line(s, X + a, Y + oy + b, X + c, Y + oy + d, C.orange, 5, { end: "triangle" }); Ellipse(s, X + c - 16, Y + oy + d - 16, 32, 32, C.orange); });
-  Line(s, X + 402, Y + oy + 382, X + 810, Y + oy + 345, C.tealText, 2.5, { dash: "dash" });
-  [[296, 186], [496, 300], [560, 392]].forEach(([x, y]) => T(s, "cycle −[__]%\n면적 −[__]%", X + x, Y + oy + y, 180, 64, { size: 24, bold: true, color: C.orangeText, lineSpacing: 1.2 }));
-  T(s, "추론 cycle ↑", X + 20, Y + 18, 300, 30, { size: 23, color: C.mute }); T(s, "면적 (상대) →", X + 630, Y + 590, 300, 30, { size: 23, color: C.mute, align: "right" });
-  [["Base · ≤170", 220, 160], ["+TCM · ≤280", 420, 160], ["+TCM+MAC · ≤470", 730, 200]].forEach(([t, x, w]) => T(s, t, X + x, Y + oy + 458, w, 30, { size: 22, color: C.mute, align: "center" }));
-  T(s, [{ text: "● ", options: { color: C.mute } }, { text: "사람이 정한 HW + 기본 SW", options: { breakLine: true } }, { text: "● ", options: { color: C.orangeText } }, { text: "AI가 HW·SW 함께 선택", options: { breakLine: true } }, { text: "- - ", options: { color: C.tealText } }, { text: "+TCM 결과 = +MAC 초기 성능" }], X + 600, Y + oy + 60, 340, 110, { size: 23, color: C.body, lineSpacing: 1.4 });
-  T(s, "[예시 — 실측으로 교체]", X + 120, Y + oy + 60, 400, 30, { size: 22, color: C.mute });
+  const s = base("3. 검증 및 결과 — PoC 결과", "60초. 왼쪽 그림: 회색 점(초기)→주황 점(루프 결과) 화살표 옆 숫자를 읽는다. 오른쪽 위 표 = 성능, 아래 표 = 면적, 같은 세 구조. 아래 검은 박스: 'AI 반복 + 개발자 검토'가 루프 1회이고 4회로 수렴. 오른쪽 두 타일: 실행 1회가 RTL 시뮬 약 60분·에뮬레이터 약 10분 → 1분 이내 — 11장 정량 효과의 근거. 면적 단위 질문이 오면 그래프 아래 각주: SRAM 1 KB = 1인 상대 단위. 신뢰성 질문: 모든 실험이 bit-exact와 ISR 제약을 통과했고 아닌 것은 자동 폐기.");
+  H2(s, "세 가지 HW 구조 모두 정확도 손실 없이 cycle −[__]~[__]% · 면적 −[__]~[__]%", 160, 46, 60);
+  const X = 80, Y = 240; card(s, X, Y, 960, 520);
+  Line(s, X + 100, Y + 450, X + 920, Y + 450, "B3B9C4", 2); Line(s, X + 100, Y + 450, X + 100, Y + 50, "B3B9C4", 2);
+  [300, 500, 830].forEach(x => Line(s, X + x, Y + 60, X + x, Y + 450, "CBD2DC", 2, { dash: "dash" }));
+  [[280, 150], [480, 250], [810, 345]].forEach(([x, y]) => Ellipse(s, X + x - 14, Y + y - 14, 28, 28, C.mute));
+  [[272, 166, 212, 282], [472, 266, 402, 382], [802, 360, 734, 426]].forEach(([a, b, c, d]) => { Line(s, X + a, Y + b, X + c, Y + d, C.orange, 5, { end: "triangle" }); Ellipse(s, X + c - 16, Y + d - 16, 32, 32, C.orange); });
+  Line(s, X + 402, Y + 382, X + 810, Y + 345, C.tealText, 2.5, { dash: "dash" });
+  [[296, 186], [496, 300], [560, 392]].forEach(([x, y]) => T(s, "cycle −[__]%\n면적 −[__]%", X + x, Y + y, 180, 64, { size: 24, bold: true, color: C.orangeText, lineSpacing: 1.2 }));
+  T(s, "추론 cycle ↑", X + 20, Y + 16, 300, 30, { size: 23, color: C.mute }); T(s, "면적 (상대) →", X + 636, Y + 16, 300, 30, { size: 23, color: C.mute, align: "right" });
+  [["Base · ≤170", 220, 160], ["+TCM · ≤280", 420, 160], ["+TCM+MAC · ≤470", 730, 200]].forEach(([t, x, w]) => T(s, t, X + x, Y + 458, w, 30, { size: 22, color: C.mute, align: "center" }));
+  T(s, [{ text: "● ", options: { color: C.mute } }, { text: "사람이 정한 HW + 기본 SW", options: { breakLine: true } }, { text: "● ", options: { color: C.orangeText } }, { text: "AI가 HW·SW 함께 선택", options: { breakLine: true } }, { text: "- - ", options: { color: C.tealText } }, { text: "+TCM 결과 = +MAC 초기 성능" }], X + 600, Y + 60, 340, 110, { size: 23, color: C.body, lineSpacing: 1.4 });
+  T(s, "[예시 — 실측으로 교체]", X + 120, Y + 60, 400, 30, { size: 22, color: C.mute });
+  T(s, [{ text: "면적(상대)", options: { bold: true, color: C.body } }, { text: " = 구성 블록 비용의 합. " }, { text: "SRAM 1 KB = 1", options: { bold: true, color: C.body } }, { text: "을 기준으로 각 IP의 면적을 대략적인 상대값으로 가정해 PoC 결과를 분석했으며, 실제 수치로 교체 가능" }], X, Y + 532, 960, 64, { size: 21, color: C.mute, lineSpacing: 1.3 });
   const RX = 1076, o = C.orangeText;
   const perf = [["HW 구조", "초기 성능 (cycle)", "최적화 루프 결과"], ["Base", "[___] M", { t: "[___] M · −[__]%", color: o, bold: true }], ["Base + TCM", "[___] M", { t: "[___] M · −[__]%", color: o, bold: true }], ["Base + TCM + MAC", "[___] M", { t: "[___] M · −[__]%", color: o, bold: true }]];
   const area = [["HW 구조", "초기 면적 (상대)", "최적화 루프 결과"], ["Base", "[___]", { t: "[___] · −[__]%", color: o, bold: true }], ["Base + TCM", "[___]", { t: "[___] · −[__]%", color: o, bold: true }], ["Base + TCM + MAC", "[___]", { t: "[___] · −[__]%", color: o, bold: true }]];
-  table(s, perf, RX, Y, 764, [300, 210, 254], { size: 24, rowH: 56 });
-  table(s, area, RX, Y + 290, 764, [300, 210, 254], { size: 24, rowH: 56 });
-  // KPI tiles
-  R(s, RX, Y + 560, 300, 110, C.ink, { radius: 10 }); T(s, "실험 1회 · 에뮬레이터 대비", RX + 22, Y + 574, 270, 28, { size: 21, color: C.navyMute });
-  T(s, [{ text: "300분", options: { color: C.navyMute, strike: "sngStrike" } }, { text: " → " }, { text: "10분", options: { bold: true, color: C.teal } }], RX + 22, Y + 608, 270, 50, { size: 34, bold: true, color: C.white });
-  [["AI 반복 · 사람 검토", "[__] · [__]회", RX + 316], ["bit-exact · ISR 제약", "전 실험 통과", RX + 548]].forEach(([k, v, x]) => { card(s, x, Y + 560, 216, 110, { radius: 10 }); T(s, k, x + 18, Y + 574, 190, 28, { size: 20, color: C.mute }); T(s, v, x + 18, Y + 608, 190, 50, { size: 30, bold: true }); });
-  T(s, [{ text: "면적(상대)", options: { bold: true, color: C.body } }, { text: " = 구성 블록 비용의 합. " }, { text: "SRAM 1 KB = 1", options: { bold: true, color: C.body } }, { text: "을 기준으로 각 IP의 면적을 대략적인 상대값으로 가정해 PoC 결과를 분석했으며, 실제 수치로 교체 가능" }], 80, 930, 1760, 40, { size: 22, color: C.mute });
+  table(s, perf, RX, Y, 764, [300, 210, 254], { size: 24, rowH: 60 });
+  table(s, area, RX, Y + 290, 764, [300, 210, 254], { size: 24, rowH: 60 });
+  // bottom strip
+  const BY = 846;
+  R(s, 80, BY, 1016, 124, C.ink, { radius: 12 });
+  T(s, [{ text: "AI 반복 최적화 + 개발자 검토 = 루프 1회 · " }, { text: "4회", options: { bold: true, color: C.orange } }, { text: "로 얻은 결과" }], 108, BY + 12, 960, 30, { size: 22, color: C.navyMute });
+  T(s, "루프마다 AI가 실험 [__]회 → 개발자가 근거 검토 · HW 변경 승인 → 다음 루프. 4회 만에 세 구조 모두 수렴 — 총 실험 [__]회 · [__]시간", 108, BY + 44, 960, 76, { size: 23, color: "F5F4EE", lineSpacing: 1.3 });
+  [["RTL 시뮬 대비 · 실행 1회", "약 60분", 1132], ["에뮬레이터 대비 · 실행 1회", "약 10분", 1496]].forEach(([k, v, x]) => {
+    card(s, x, BY, 344, 124, { radius: 12 }); T(s, k, x + 24, BY + 14, 300, 28, { size: 21, color: C.mute });
+    T(s, [{ text: v, options: { color: C.mute, strike: "sngStrike" } }, { text: " → " }, { text: "1분 이내", options: { bold: true, color: C.tealText } }], x + 24, BY + 54, 300, 50, { size: 32, bold: true });
+  });
 }
 
 // 11. impact
 {
-  const s = base("4. 기대효과 · 마무리", "30초. 정량 칸 첫 줄(300분→10분)이 10장 검은 타일의 파생. 나머지 대괄호는 PoC 실측. '다음' 띠는 한 문장으로 읽고 감사 인사.\n\n제목 후보:\n1. 실리콘보다 먼저 — Cycle-level 가상 플랫폼과 파형 기반 프로파일러 위에서 AI가 도는 HW-SW Co-Optimization\n2. 파형에서 최적화까지 — 실리콘을 기다리지 않는 HW·SW 공동 최적화 루프\n3. 돌리고, 읽고, 고친다 — Pre-Silicon 성능 분석 툴체인과 AI Co-Optimization\n4. Shift-Left, Close the Loop — 실리콘 없이 완성하는 HW-SW 최적화\n5. 실리콘 없이 답하는 세 가지 질문: 얼마나 느린가, 왜 느린가, 어떻게 고치는가");
+  const s = base("4. 기대효과 · 마무리", "30초. 정량 칸 첫 두 줄이 10장 아래 박스·타일의 파생. 나머지 대괄호는 PoC 실측. '다음' 띠는 한 문장으로 읽고 감사 인사.\n\n제목 후보:\n1. 실리콘보다 먼저 — Cycle-level 가상 플랫폼과 파형 기반 프로파일러 위에서 AI가 도는 HW-SW Co-Optimization\n2. 파형에서 최적화까지 — 실리콘을 기다리지 않는 HW·SW 공동 최적화 루프\n3. 돌리고, 읽고, 고친다 — Pre-Silicon 성능 분석 툴체인과 AI Co-Optimization\n4. Shift-Left, Close the Loop — 실리콘 없이 완성하는 HW-SW 최적화\n5. 실리콘 없이 답하는 세 가지 질문: 얼마나 느린가, 왜 느린가, 어떻게 고치는가");
   H2(s, "실리콘을 기다리지 않습니다. 돌리고, 읽고, 고칩니다.", 160, 68, 90);
   [["정성적 효과", ["HW·SW 최적화까지 실리콘 전에 — 기존 FPGA·에뮬레이터 흐름 앞에 추가되는 단계", "\"왜 느린가\"에 프로파일·경합 창이라는 근거로 답함", "HW 결정에 면적 비용이 항상 따라붙어 공짜 답이 없음", "반복은 AI, 검토·승인은 사람 — 역할이 분리됨"], C.orange],
-   ["정량적 효과", ["실험 1회 에뮬레이터 300분 → 10분, 같은 시간에 30배 더 많은 시도", "하루 [__]회 반복 — 사람이 손으로 하면 [__]회", "같은 SW·같은 정확도로 추론 cycle −[__]%, 면적 −[__]%", "탐색 기간 [__]일 → [__]시간"], C.teal]].forEach((c, i) => {
+   ["정량적 효과", ["실행 1회 1분 이내 — RTL 시뮬레이션 약 60분, 에뮬레이터 약 10분 대비", "AI 반복 + 개발자 검토 루프 4회로 수렴 — 총 실험 [__]회 · [__]시간", "같은 SW·같은 정확도로 추론 cycle −[__]%, 면적 −[__]%", "탐색 기간 [__]일 → [__]시간"], C.teal]].forEach((c, i) => {
     const x = 80 + i * 894, w = 866; card(s, x, 300, w, 480); R(s, x, 300, w, 6, c[2]);
     T(s, c[0], x + 44, 336, w - 88, 50, { size: 38, bold: true }); bullets(s, c[1], x + 44, 404, w - 88, 360, { size: 30 });
   });
