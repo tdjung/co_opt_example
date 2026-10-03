@@ -258,28 +258,29 @@ function table(s, rows, x, y, w, colW, o = {}) {
 
 // 9. poc
 {
-  const s = base("3. 검증 및 결과 — PoC 구성: Keyword Spotting", "50초. 오른쪽: '소리가 들어와서 yes라는 답이 나오는 데 몇 cycle 걸리나'가 측정값. 아래 세 칸이 일부러 심은 상충 관계. 면적 예산 3단계(≤170/≤280/≤470), SW 소스 동일.");
+  const s = base("3. 검증 및 결과 — PoC 구성: Keyword Spotting", "50초. 왼쪽: Base(검정)에 예산 280부터 TCM(청록 점선), 470부터 MAC(주황 점선)이 더해진다. 주황 점이 AI가 고르는 HW knob. 오른쪽: '소리가 들어와서 yes라는 답이 나오는 데 몇 cycle 걸리나'가 측정값. 아래 세 칸이 일부러 심은 상충 관계. 면적 예산 3단계(≤170/≤280/≤470), SW 소스 동일.");
   H2(s, "PoC: 음성 키워드 인식(KWS)을 세 가지 면적 예산에서 최적화", 160, 60, 80);
-  { // architecture diagram
+  { // architecture diagram (Base / +TCM / +MAC)
     const X = 80, Y = 290; card(s, X, Y, 840, 570);
     const box = (x, y, w, h, fill, o = {}) => R(s, X + x, Y + y, w, h, fill, { radius: o.r === undefined ? 12 : o.r, line: o.line, lw: o.lw, dash: o.dash });
-    const V = (x, y1, y2) => Line(s, X + x, Y + y1, X + x, Y + y2, C.mute, 3);
-    const dot = (cx, cy) => Ellipse(s, X + cx - 9, Y + cy - 9, 18, 18, C.orange);
-    T(s, "CM4 가상 플랫폼 · JSON config 1장으로 조립", X + 24, Y + 14, 800, 30, { size: 22, mono: true, color: C.mute });
-    [130, 480, 715].forEach(x => V(x, 166, 250)); [120, 286, 366, 446, 526, 710].forEach(x => V(x, 302, 352));
-    box(30, 56, 200, 110, C.ink); T(s, "Cortex-M4", X + 30, Y + 70, 200, 40, { size: 28, bold: true, color: C.white, align: "center" }); T(s, "FPU · NVIC · 3-stage", X + 30, Y + 116, 200, 30, { size: 20, color: C.navySoft, align: "center" });
-    Line(s, X + 230, Y + 82, X + 244, Y + 82, C.ink, 3); Line(s, X + 230, Y + 140, X + 244, Y + 140, C.ink, 3);
-    [["ITCM", 56], ["DTCM", 114]].forEach(([n, y]) => { box(244, y, 106, 52, C.white, { r: 8, line: C.ink, lw: 1.5 }); T(s, [{ text: n, options: { bold: true, breakLine: true } }, { text: "16–64 KB", options: { color: C.body } }], X + 244, Y + y + 3, 106, 48, { size: 19, align: "center", lineSpacing: 1.1 }); dot(350, y); });
-    box(55, 186, 150, 40, C.white, { r: 20, line: C.ink, lw: 1.5 }); T(s, "I-Cache 0–4 KB", X + 55, Y + 186, 150, 40, { size: 19, bold: true, align: "center", valign: "middle" }); dot(205, 186);
-    box(400, 56, 160, 110, C.ink); T(s, "DMA", X + 400, Y + 70, 160, 40, { size: 28, bold: true, color: C.white, align: "center" }); T(s, "2ch · burst 1–16\n오디오 → SRAM", X + 400, Y + 114, 160, 50, { size: 20, color: C.navySoft, align: "center", lineSpacing: 1.15 }); dot(560, 56);
-    box(620, 56, 190, 110, C.white, { line: C.orangeText, lw: 2.25, dash: "dash" }); T(s, "MAC 가속기", X + 620, Y + 70, 190, 40, { size: 28, bold: true, color: C.orangeText, align: "center" }); T(s, "INT8 dot-product\n옵션 (예산 ≤470)", X + 620, Y + 112, 190, 50, { size: 19, color: C.body, align: "center", lineSpacing: 1.15 }); dot(810, 56);
-    box(30, 250, 780, 52, C.teal, { r: 10 }); T(s, "AHB 매트릭스 · 마스터 3개의 경합을 cycle 단위로 모델링", X + 30, Y + 250, 780, 52, { size: 24, bold: true, color: C.white, align: "center", valign: "middle" });
-    box(30, 352, 180, 80, C.white, { line: C.ink, lw: 1.5 }); T(s, "Flash 512 KB", X + 30, Y + 360, 180, 30, { size: 22, bold: true, align: "center" }); T(s, "WS 6→4 · prefetch", X + 30, Y + 396, 180, 28, { size: 19, color: C.body, align: "center" }); dot(210, 352);
-    [["SRAM0", 250], ["SRAM1", 330], ["SRAM2", 410]].forEach(([n, x]) => { box(x, 352, 72, 80, C.white, { r: 10, line: C.ink, lw: 1.5 }); T(s, n, X + x, Y + 352, 72, 80, { size: 19, bold: true, align: "center", valign: "middle" }); });
-    box(490, 352, 72, 80, C.white, { r: 10, line: C.orangeText, lw: 2.25, dash: "dash" }); T(s, "SRAM3", X + 490, Y + 352, 72, 80, { size: 19, bold: true, color: C.orangeText, align: "center", valign: "middle" }); dot(562, 352);
-    T(s, "64 KB 뱅크 × 2–4 · 독립 포트", X + 250, Y + 438, 312, 28, { size: 19, color: C.body, align: "center" });
-    box(610, 352, 200, 80, C.white, { line: C.ink, lw: 1.5 }); T(s, "주변장치", X + 610, Y + 360, 200, 30, { size: 22, bold: true, align: "center" }); T(s, "Timer 1 kHz · Audio in\nSensor · Actuator", X + 610, Y + 390, 200, 40, { size: 16, color: C.body, align: "center", lineSpacing: 1.15 });
-    T(s, [{ text: "● ", options: { color: C.orange } }, { text: "config knob — 면적 예산 안에서 AI가 선택:", options: { breakLine: true } }, { text: "TCM 크기 · SRAM 뱅크 수 · I-Cache · Flash WS/prefetch · DMA burst · MAC 유무", options: { breakLine: true } }, { text: "- - ", options: { color: C.orangeText } }, { text: "점선 = 예산에 따라 있거나 없는 블록 · 바탕 구조는 공통" }], X + 24, Y + 478, 800, 90, { size: 20, color: C.body, lineSpacing: 1.3 });
+    const V = (x, y1, y2) => Line(s, X + x, Y + y1, X + x, Y + y2, C.mute, 3.5);
+    const dot = (cx, cy) => Ellipse(s, X + cx - 10, Y + cy - 10, 20, 20, C.orange);
+    T(s, "CM4 가상 플랫폼 · 면적 예산 3단계", X + 24, Y + 18, 440, 30, { size: 22, mono: true, color: C.mute });
+    R(s, X + 470, Y + 22, 22, 22, C.ink, { radius: 4 }); T(s, "Base", X + 500, Y + 16, 90, 32, { size: 22, bold: true });
+    R(s, X + 590, Y + 22, 22, 22, C.white, { radius: 4, line: C.tealText, lw: 2, dash: "dash" }); T(s, "+TCM", X + 620, Y + 16, 90, 32, { size: 22, bold: true, color: C.tealText });
+    R(s, X + 700, Y + 22, 22, 22, C.white, { radius: 4, line: C.orangeText, lw: 2, dash: "dash" }); T(s, "+MAC", X + 730, Y + 16, 90, 32, { size: 22, bold: true, color: C.orangeText });
+    [310, 545, 730].forEach(x => V(x, 204, 270)); [140, 425, 705].forEach(x => V(x, 322, 390));
+    Line(s, X + 180, Y + 150, X + 200, Y + 150, C.tealText, 6);
+    box(40, 96, 140, 108, C.white, { line: C.tealText, lw: 3, dash: "dash" }); T(s, "TCM", X + 40, Y + 108, 140, 40, { size: 28, bold: true, color: C.tealText, align: "center" }); T(s, "ITCM + DTCM\n예산 ≤280부터", X + 40, Y + 152, 140, 50, { size: 20, color: C.body, align: "center", lineSpacing: 1.15 }); dot(180, 96);
+    box(200, 96, 220, 108, C.ink); T(s, "Cortex-M4", X + 200, Y + 106, 220, 44, { size: 32, bold: true, color: C.white, align: "center" }); T(s, "FPU · NVIC", X + 200, Y + 158, 220, 30, { size: 21, color: C.navySoft, align: "center" });
+    box(470, 96, 150, 108, C.ink); T(s, "DMA", X + 470, Y + 106, 150, 44, { size: 32, bold: true, color: C.white, align: "center" }); T(s, "burst 1–16", X + 470, Y + 158, 150, 30, { size: 21, color: C.navySoft, align: "center" }); dot(620, 96);
+    box(660, 96, 140, 108, C.white, { line: C.orangeText, lw: 3, dash: "dash" }); T(s, "MAC", X + 660, Y + 108, 140, 40, { size: 28, bold: true, color: C.orangeText, align: "center" }); T(s, "INT8 가속기\n예산 ≤470부터", X + 660, Y + 152, 140, 50, { size: 20, color: C.body, align: "center", lineSpacing: 1.15 }); dot(800, 96);
+    box(40, 270, 760, 52, C.body, { r: 10 }); T(s, "AHB 매트릭스 — 마스터 간 경합을 cycle 단위로", X + 40, Y + 270, 760, 52, { size: 26, bold: true, color: C.white, align: "center", valign: "middle" });
+    box(40, 390, 200, 100, C.white, { line: C.ink, lw: 1.5 }); T(s, "Flash", X + 40, Y + 402, 200, 40, { size: 28, bold: true, align: "center" }); T(s, "512 KB · WS/prefetch", X + 40, Y + 446, 200, 30, { size: 20, color: C.body, align: "center" }); dot(240, 390);
+    box(290, 390, 270, 100, C.white, { line: C.ink, lw: 1.5 }); Line(s, X + 425, Y + 390, X + 425, Y + 490, C.line, 1.5);
+    T(s, "SRAM0", X + 290, Y + 402, 135, 40, { size: 26, bold: true, align: "center" }); T(s, "SRAM1", X + 425, Y + 402, 135, 40, { size: 26, bold: true, align: "center" }); T(s, "64 KB × 2 · CPU·DMA 공유", X + 290, Y + 446, 270, 30, { size: 20, color: C.body, align: "center" }); dot(560, 390);
+    box(610, 390, 190, 100, C.white, { line: C.ink, lw: 1.5 }); T(s, "주변장치", X + 610, Y + 402, 190, 40, { size: 28, bold: true, align: "center" }); T(s, "Timer · Audio · I/O", X + 610, Y + 446, 190, 30, { size: 20, color: C.body, align: "center" });
+    T(s, [{ text: "● ", options: { color: C.orange } }, { text: "config knob — 크기·개수·burst·WS를 AI가 예산 안에서 선택" }], X + 24, Y + 520, 800, 36, { size: 21, color: C.body });
   }
   const X = 960, Y = 290;
   R(s, X, Y, 880, 160, C.ink, { radius: 16 }); T(s, "마이크 · 16 kHz · 1초 클립", X + 22, Y + 14, 500, 30, { size: 23, mono: true, color: C.navyMute });
