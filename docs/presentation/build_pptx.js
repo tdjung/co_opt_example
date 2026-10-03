@@ -323,7 +323,7 @@ function table(s, rows, x, y, w, colW, o = {}) {
   R(s, RX, Y + 560, 300, 110, C.ink, { radius: 10 }); T(s, "실험 1회 · 에뮬레이터 대비", RX + 22, Y + 574, 270, 28, { size: 21, color: C.navyMute });
   T(s, [{ text: "300분", options: { color: C.navyMute, strike: "sngStrike" } }, { text: " → " }, { text: "10분", options: { bold: true, color: C.teal } }], RX + 22, Y + 608, 270, 50, { size: 34, bold: true, color: C.white });
   [["AI 반복 · 사람 검토", "[__] · [__]회", RX + 316], ["bit-exact · ISR 제약", "전 실험 통과", RX + 548]].forEach(([k, v, x]) => { card(s, x, Y + 560, 216, 110, { radius: 10 }); T(s, k, x + 18, Y + 574, 190, 28, { size: 20, color: C.mute }); T(s, v, x + 18, Y + 608, 190, 50, { size: 30, bold: true }); });
-  T(s, [{ text: "면적(상대)", options: { bold: true, color: C.body } }, { text: " = 구성 블록 비용의 합, " }, { text: "SRAM 1 KB = 1", options: { bold: true, color: C.body } }, { text: " 기준 — TCM 1.1/KB · I-Cache 2.5/KB · Flash prefetch 1.5 · DMA 0.8/ch · MAC 4 + 1.2/lane. 공개 자료(CACTI 계열) 비율이며 mm²가 아님 · 예산 170/280/470도 같은 단위" }], 80, 930, 1760, 60, { size: 22, color: C.mute, lineSpacing: 1.3 });
+  T(s, [{ text: "면적(상대)", options: { bold: true, color: C.body } }, { text: " = 구성 블록 비용의 합. " }, { text: "SRAM 1 KB = 1", options: { bold: true, color: C.body } }, { text: "을 기준으로 각 IP의 면적을 대략적인 상대값으로 가정해 PoC 결과를 분석했으며, 실제 수치로 교체 가능" }], 80, 930, 1760, 40, { size: 22, color: C.mute });
 }
 
 // 11. impact
