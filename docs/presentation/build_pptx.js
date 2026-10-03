@@ -300,8 +300,8 @@ function table(s, rows, x, y, w, colW, o = {}) {
 
 // 10. results
 {
-  const s = base("3. 검증 및 결과 — PoC 결과", "60초. 왼쪽 그림: 회색 점(초기)→주황 점(루프 결과) 화살표 옆 숫자를 읽는다. 오른쪽 위 표 = 성능, 아래 표 = 면적, 같은 세 구조. 검은 타일 '에뮬 300분 → 10분'은 실험 1회 기준 — 11장 정량 효과(하루 반복 횟수·탐색 기간)의 근거가 된다. 신뢰성 질문이 오면 세 번째 타일: 모든 실험이 bit-exact와 ISR 제약을 통과했고 아닌 것은 자동 폐기.");
-  H2(s, "세 가지 HW 구조 모두 정확도 손실 없이 cycle −[__]~[__]%, 면적 −[__]~[__]%", 160, 52, 80);
+  const s = base("3. 검증 및 결과 — PoC 결과", "60초. 왼쪽 그림: 회색 점(초기)→주황 점(루프 결과) 화살표 옆 숫자를 읽는다. 오른쪽 위 표 = 성능, 아래 표 = 면적, 같은 세 구조. 검은 타일 '에뮬 300분 → 10분'은 실험 1회 기준 — 11장 정량 효과(하루 반복 횟수·탐색 기간)의 근거가 된다. 면적 단위 질문이 오면 맨 아래 각주: SRAM 1 KB = 1인 상대 단위, 블록 계수의 합. 신뢰성 질문이 오면 세 번째 타일: 모든 실험이 bit-exact와 ISR 제약을 통과했고 아닌 것은 자동 폐기.");
+  H2(s, "세 가지 HW 구조 모두 정확도 손실 없이 cycle −[__]~[__]% · 면적 −[__]~[__]%", 160, 46, 80);
   const X = 80, Y = 270; card(s, X, Y, 960, 640);
   const oy = 60; // chart origin offset inside card
   Line(s, X + 100, Y + oy + 450, X + 920, Y + oy + 450, "B3B9C4", 2); Line(s, X + 100, Y + oy + 450, X + 100, Y + oy + 50, "B3B9C4", 2);
@@ -323,6 +323,7 @@ function table(s, rows, x, y, w, colW, o = {}) {
   R(s, RX, Y + 560, 300, 110, C.ink, { radius: 10 }); T(s, "실험 1회 · 에뮬레이터 대비", RX + 22, Y + 574, 270, 28, { size: 21, color: C.navyMute });
   T(s, [{ text: "300분", options: { color: C.navyMute, strike: "sngStrike" } }, { text: " → " }, { text: "10분", options: { bold: true, color: C.teal } }], RX + 22, Y + 608, 270, 50, { size: 34, bold: true, color: C.white });
   [["AI 반복 · 사람 검토", "[__] · [__]회", RX + 316], ["bit-exact · ISR 제약", "전 실험 통과", RX + 548]].forEach(([k, v, x]) => { card(s, x, Y + 560, 216, 110, { radius: 10 }); T(s, k, x + 18, Y + 574, 190, 28, { size: 20, color: C.mute }); T(s, v, x + 18, Y + 608, 190, 50, { size: 30, bold: true }); });
+  T(s, [{ text: "면적(상대)", options: { bold: true, color: C.body } }, { text: " = 구성 블록 비용의 합, " }, { text: "SRAM 1 KB = 1", options: { bold: true, color: C.body } }, { text: " 기준 — TCM 1.1/KB · I-Cache 2.5/KB · Flash prefetch 1.5 · DMA 0.8/ch · MAC 4 + 1.2/lane. 공개 자료(CACTI 계열) 비율이며 mm²가 아님 · 예산 170/280/470도 같은 단위" }], 80, 930, 1760, 60, { size: 22, color: C.mute, lineSpacing: 1.3 });
 }
 
 // 11. impact
