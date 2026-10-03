@@ -85,6 +85,9 @@ gem5는 Cortex-M을 지원하지 않고, GVSoC는 RISC-V 전용, Fast Model은 �
 **"면적은 무슨 단위인가?"** → 10장 각주
 절대 mm²가 아니라 SRAM 1 KB를 1로 둔 상대 단위입니다. 각 IP(TCM, I-Cache, DMA, MAC 가속기 등)의 면적을 대략적인 상대값으로 가정해 구성에 따라 합산했고, 그 가정은 표 하나(`tools/cost/cost_table.json`)에 모여 있어 실제 공정 수치로 바꾸면 전체 결과가 다시 계산됩니다. 이 과제의 요점은 숫자 자체보다 HW 결정에 비용이 항상 따라붙게 만든 구조입니다.
 
+**"KWS 알고리즘은 어디서 가져왔나? 직접 만든 건 뭔가?"** → 9장 흐름도 아래 한 줄
+모델은 Arm ML-zoo의 DS-CNN Small(Google Hello Edge 논문 구조, INT8 tflite), 추론 커널은 CMSIS-NN, MFCC 전처리는 CMSIS-DSP, 평가 데이터는 Google Speech Commands v2 — 전부 공개 자산이고 TFLite 참조 결과와 bit-exact임을 확인했습니다. 직접 만든 것은 HAL 추상화, 배치·DMA·오프로드 knob 구조, MAC 가속기 오프로드 커널, 골든 검증 체계, 그 위의 AI 루프입니다.
+
 **"정합성 99.7%는 어디서 나온 숫자인가?"**
 [측정 방법·벤치마크·RTL 대비 조건을 한 문장으로.]
 

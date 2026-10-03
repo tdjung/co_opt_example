@@ -261,7 +261,7 @@ function table(s, rows, x, y, w, colW, o = {}) {
 
 // 9. poc
 {
-  const s = base("3. 검증 및 결과 — PoC 구성: Keyword Spotting", "50초. 왼쪽: Base(검정)에 예산 280부터 TCM(청록 점선), 470부터 MAC(주황 점선)이 더해진다. 주황 점이 AI가 고르는 HW knob. 오른쪽: '소리가 들어와서 yes라는 답이 나오는 데 몇 cycle 걸리나'가 측정값. 아래 세 칸이 일부러 심은 상충 관계. 면적 예산 3단계(≤170/≤280/≤470), SW 소스 동일.");
+  const s = base("3. 검증 및 결과 — PoC 구성: Keyword Spotting", "50초. 출처 질문: 모델 Arm ML-zoo DS-CNN Small(Hello Edge 논문 구조), 커널 CMSIS-NN 7.0, 전처리 CMSIS-DSP 1.16, 데이터 Google Speech Commands v2. 우리가 만든 것은 HAL·배치 knob·MAC 오프로드 커널·골든 검증·AI 루프. 왼쪽: Base(검정)에 예산 280부터 TCM(청록 점선), 470부터 MAC(주황 점선)이 더해진다. 주황 점이 AI가 고르는 HW knob. 오른쪽: '소리가 들어와서 yes라는 답이 나오는 데 몇 cycle 걸리나'가 측정값. 아래 세 칸이 일부러 심은 상충 관계. 면적 예산 3단계(≤170/≤280/≤470), SW 소스 동일.");
   H2(s, "PoC: 음성 키워드 인식(KWS)을 세 가지 면적 예산에서 최적화", 160, 60, 80);
   { // architecture diagram (Base / +TCM / +MAC)
     const X = 80, Y = 290; card(s, X, Y, 840, 570);
@@ -288,8 +288,9 @@ function table(s, rows, x, y, w, colW, o = {}) {
   const X = 960, Y = 290;
   R(s, X, Y, 880, 160, C.ink, { radius: 16 }); T(s, "마이크 · 16 kHz · 1초 클립", X + 22, Y + 14, 500, 30, { size: 23, mono: true, color: C.navyMute });
   { let x0 = X + 40; [-40, 20, -50, 30, -10, 55, -25, 5, -40, 15, -45, 20, -8, 30, -12, 50, -20, 6, -35, 10, -30, 12].forEach(a => { const h = Math.abs(a); Line(s, x0, Y + 90, x0 + 18, Y + 90 + a / 1.6, C.teal, 2.5); Line(s, x0 + 18, Y + 90 + a / 1.6, x0 + 36, Y + 90, C.teal, 2.5); x0 += 36; }); }
-  [["DMA", "20 ms 프레임 수집"], ["MFCC", "FFT → 음향 특징"], ["CNN 추론", "INT8 · 2.7 M MAC"]].forEach((b, i) => { const x = X + i * 307; card(s, x, Y + 215, 266, 120, { radius: 14 }); T(s, b[0] + "\n" + b[1], x, Y + 215, 266, 120, { size: 28, bold: true, align: "center", valign: "middle", lineSpacing: 1.25 }); if (i < 2) Arrow(s, x + 266, Y + 262, 41, 26, C.orangeText); });
+  [["DMA", "20 ms 프레임 수집"], ["MFCC", "FFT → 음향 특징"], ["CNN 추론", "DS-CNN · 2.7 M MAC"]].forEach((b, i) => { const x = X + i * 307; card(s, x, Y + 215, 266, 120, { radius: 14 }); T(s, b[0] + "\n" + b[1], x, Y + 215, 266, 120, { size: 28, bold: true, align: "center", valign: "middle", lineSpacing: 1.25 }); if (i < 2) Arrow(s, x + 266, Y + 262, 41, 26, C.orangeText); });
   Line(s, X + 747, Y + 335, X + 747, Y + 400, C.orangeText, 5, { end: "triangle" });
+  T(s, "출처 — 모델 Arm ML-zoo DS-CNN Small · 커널 CMSIS-NN · 전처리 CMSIS-DSP\n데이터 Google Speech Commands v2 · 모두 공개 자산 · TFLite 참조와 bit-exact", X, Y + 346, 720, 56, { size: 19, color: C.mute, lineSpacing: 1.3 });
   R(s, X, Y + 410, 880, 170, C.ink, { radius: 16 }); T(s, "결과: 12개 키워드 중 하나", X + 22, Y + 424, 600, 30, { size: 23, mono: true, color: C.navyMute });
   pill(s, "yes", X + 32, Y + 462, 140, 54, C.orange, C.ink); T(s, "no · up · down · left · right · on · off · stop · go · silence · unknown", X + 190, Y + 472, 680, 40, { size: 22, color: C.navySoft });
   T(s, "+ 동시에 1 kHz 제어 루프 ISR (응답 ≤ 20 µs)가 돌아야 함", X + 22, Y + 528, 840, 34, { size: 25, color: "F5F4EE" });
