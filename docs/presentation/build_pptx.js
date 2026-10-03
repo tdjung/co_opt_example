@@ -175,16 +175,19 @@ function table(s, rows, x, y, w, colW, o = {}) {
 
 // 5. platform
 {
-  const s = base("2. 개발 및 설계 — Cortex-M4 TLM 가상 플랫폼", "40초. 세 숫자만 말한다. 모델링 범위는 손으로 훑는 정도. gem5/Fast Model 질문: gem5는 Cortex-M 미지원, Fast Model은 LT라 cycle 분석 불가.");
+  const s = base("2. 개발 및 설계 — Cortex-M4 TLM 가상 플랫폼", "40초. 세 숫자만 말한다. 아래는 '코어·메모리·버스는 기존 자산, 이번에 더한 것은 MAC 가속기·PoC 주변장치·분석 출력'을 한 문장으로. gem5/Fast Model 질문: gem5는 Cortex-M 미지원, Fast Model은 LT라 cycle 분석 불가.");
   H2(s, "TLM으로 만든 Cortex-M4 SoC: 빠르고, 정확하고, 간편합니다", 160, 60, 80);
   [["빠르다", "50배+", C.teal, "RTL 시뮬 대비 (벤치마크) · 실제 워크로드 수백 배 예상"], ["정확하다", "99.7%", C.orange, "cycle 정합성, RTL 시뮬 대비"], ["간편하다", "JSON 1장", C.white, "모델을 조립해 SoC 구성", 84]].forEach((c, i) => {
     const x = 80 + i * 596, w = 568; R(s, x, 290, w, 300, C.ink, { radius: 16 });
     T(s, c[0], x + 44, 320, w - 88, 36, { size: 28, color: C.navyMute }); T(s, c[1], x + 44, 360, w - 88, 130, { size: c[4] || 112, bold: true, color: c[2], valign: "middle" }); T(s, c[3], x + 44, 500, w - 88, 70, { size: 26, color: C.navySoft, lineSpacing: 1.25 });
   });
-  T(s, "모델링 범위", 80, 630, 600, 40, { size: 30, bold: true, color: C.body });
-  [["코어", "CM4 3단 인오더 파이프라인, 명령어별 cycle, NVIC, FPU"], ["메모리", "TCM, 독립 SRAM 뱅크, Flash wait state·prefetch, I-Cache"], ["버스", "AHB 매트릭스, 마스터 간 실제 경합 지연"], ["주변장치", "DMA(burst), Timer, 오디오 입력, 센서·액추에이터, MAC 가속기"]].forEach((c, i) => {
-    const x = 80 + i * 446, w = 422; card(s, x, 690, w, 250, { radius: 14 });
-    Ellipse(s, x + 28, 716, 40, 40, C.orangeText); T(s, c[0], x + 82, 714, w - 100, 44, { size: 32, bold: true }); T(s, c[1], x + 28, 776, w - 56, 140, { size: 25, color: C.body, lineSpacing: 1.3 });
+  card(s, 80, 640, 420, 300, { fill: C.white, radius: 14 });
+  T(s, "기존 자산 · 그대로 사용", 110, 668, 360, 32, { size: 24, bold: true, color: C.mute });
+  T(s, "CM4 코어 (NVIC·FPU)\nTCM · SRAM · Flash · I-Cache\nAHB 매트릭스 · DMA · Timer", 110, 712, 370, 130, { size: 25, color: C.body, lineSpacing: 1.5 });
+  T(s, "이번 과제에서 추가 모델링", 528, 640, 800, 36, { size: 28, bold: true, color: C.orangeText });
+  [["MAC 가속기", "INT8 dot-product 버스 마스터 · 레지스터 맵 · 완료 IRQ · 면적 비용"], ["PoC 주변장치", "오디오 입력(16 kHz → DMA) · 센서/액추에이터 · 결과·마커 출력"], ["분석 출력 확장", "callgrind 이벤트: 메모리 영역별 접근·스톨·버스 대기 · FST: PC·함수·버스 신호"]].forEach((c, i) => {
+    const x = 528 + i * 444, w = 424; card(s, x, 690, w, 250, { radius: 14 }); R(s, x, 690, w, 6, C.orange);
+    T(s, c[0], x + 28, 716, w - 56, 40, { size: 30, bold: true }); T(s, c[1], x + 28, 766, w - 56, 150, { size: 24, color: C.body, lineSpacing: 1.35 });
   });
 }
 
